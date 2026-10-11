@@ -1,0 +1,16 @@
+{
+  "protocol": "v1+B_fixture_v2+B_contract_v3",
+  "utc": "2026-10-08T15:19:52.055984+00:00",
+  "original_manifest_sha256": "b7049c6b7b5d80198424f65711275759d18749809dafccc7ec7f8ce700349f01",
+  "previous_amendment_sha256": "176ae0699f0dd8e6d35ca949ea17ec5f44cc5fcbce2bd24e6817173d1b23a8a0",
+  "changed_case": "b09",
+  "changed_fields": [
+    "statement",
+    "h16.next_action"
+  ],
+  "sha256": {
+    "PROTOCOL_AMENDMENT_B_V3.md": "ecb1aa414d26bdc00c1528930aa1358c71ccb23b4a204b45ee0a0b73ba658ad5",
+    "data/b_cases_v3.json": "a23222bfaf6ec478486a9f5cabe5e1f555c98b6a107a01dc98429988ac1e59c0",
+    "data/b_claims_v3.json": "6cb51adb14dbacaadbbc4a60054d4f9f1a036ec32abe60252da80eb20229b8c9"
+  }
+}

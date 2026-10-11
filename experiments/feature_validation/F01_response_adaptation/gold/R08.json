@@ -1,0 +1,19 @@
+{
+  "scenario_id": "R08",
+  "case_id": "07",
+  "private_marker": "F01_PRIVATE_R08",
+  "expected_interpretation": "prediction_specification_distinction",
+  "allowed_actions": [
+    "show_counterexample",
+    "continue_asking"
+  ],
+  "supported_facts": "0是正确原程序预测，不是规范断言；请求先单负数核验，动作应尊重该请求。",
+  "not_supported": [
+    "long_term_mastery",
+    "persistent_misconception",
+    "independent_repair_success"
+  ],
+  "repeated_question_forbidden": false,
+  "reference_origin": "author_review_of_simulated_reply; no independent human",
+  "needs_human_review": true
+}

@@ -1,0 +1,24 @@
+{
+  "interpretation": "学生把 n=1 的单例通过视为修复完成，尚未解释返回表达式的作用；已有执行事实与这一判断矛盾。",
+  "answer_quotes": [
+    "局部改动版在n=1通过，说明它已经修好了，其它返回部分不用看。"
+  ],
+  "evidence_sufficiency": "partial",
+  "next_action": "show_counterexample",
+  "student_message": "已有执行记录显示：local_patch 在 n=1 时通过，但在 n=3 时返回 8，题目要求 6。请比较这两个输入：return 中的 + n - 1 分别是多少？为什么 n=1 的通过不能排除返回部分有问题？",
+  "decision_basis": "用已有失败用例反驳单例通过即可证明修复的判断，并引导学生发现 n=1 时额外项恰好为零，未直接给出修复编辑。",
+  "uncertainties": [
+    "学生是否理解 n=1 会掩盖返回表达式中额外项的影响。"
+  ],
+  "evidence_refs": [
+    "SOURCE",
+    "CONTRACT",
+    "ANSWER",
+    "E5",
+    "E6"
+  ],
+  "execution_requests": [],
+  "question_intent": "通过比较两个输入下返回表达式的额外项，让学生重新判断单个通过用例能否证明修复完成。",
+  "stop_questioning": false,
+  "stop_reason": "not_stopping"
+}

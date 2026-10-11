@@ -1,0 +1,19 @@
+{
+  "scenario_id": "R04",
+  "case_id": "01",
+  "private_marker": "F01_PRIVATE_R04",
+  "expected_interpretation": "self_reported_alternative_plan",
+  "allowed_actions": [
+    "request_self_modification",
+    "suspend_for_choice"
+  ],
+  "supported_facts": "不认为端点进入循环；自述补末项计划未核验，但当前句子反对不懂range归因。",
+  "not_supported": [
+    "long_term_mastery",
+    "persistent_misconception",
+    "independent_repair_success"
+  ],
+  "repeated_question_forbidden": true,
+  "reference_origin": "author_review_of_simulated_reply; no independent human",
+  "needs_human_review": true
+}

@@ -1,0 +1,43 @@
+{
+  "role": "F02_S1",
+  "model_requested": "gpt-6.1-sol",
+  "thinking": "high",
+  "backend_snapshot": null,
+  "start_utc": "2026-10-10T13:09:28.658880+00:00",
+  "end_utc": "2026-10-10T13:11:37.810548+00:00",
+  "elapsed_seconds": 129.1515,
+  "exit_code": 0,
+  "timeout": false,
+  "raw_bytes": 932,
+  "raw_sha256": "234e54ea3fa3703b0b96abd1dccb1191df40e99bae299cd301fc0e0d2d2abedc",
+  "prompt_sha256": "7627cd54ab3a41d79d8e9b60928d910002abe285ee0209a829d2b3ed4a5444b2",
+  "thread_ids": [
+    "01a125ee-ca90-7201-9c68-3fc64fe69d99"
+  ],
+  "completed_turns": 1,
+  "event_output_match": true,
+  "observed_tool_calls": 0,
+  "warnings": 7,
+  "usage": {
+    "input_tokens": 8818,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 446,
+    "reasoning_output_tokens": 173
+  },
+  "CLI_success": true,
+  "parse_error": null,
+  "structural_valid": true,
+  "work_files_after": [
+    "prompt.md",
+    "schema.json"
+  ],
+  "normal_product_login": true,
+  "first_response_only": true,
+  "full_OS_isolation": false,
+  "exact_server_context_attested": false,
+  "cost_currency": null,
+  "allocated_subscription_cost": null,
+  "provenance": "real_official_Codex_CLI; no_model_self_score",
+  "data_origin": "independent_AI_auxiliary_review"
+}

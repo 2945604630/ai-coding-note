@@ -1,0 +1,260 @@
+[
+  {
+    "check_id": "A01",
+    "case_id": "A",
+    "args": [
+      3
+    ],
+    "source_version": "original",
+    "expected_verification": "supported",
+    "claim": {
+      "kind": "output_equals",
+      "text": "E3 显示实际返回 3，而题目要求返回 6。",
+      "args": [
+        3
+      ],
+      "source_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+      "source_version": "original",
+      "origin": "historical_real_AI_statement",
+      "mapping_origin": "author_explicit_mapping_not_NL_model_judgment",
+      "value": 3,
+      "source": {
+        "path": "repo://experiments/feature_validation/F02_dynamic_questioning/responses/S1_C01_FIRST/raw_response.json",
+        "sha256": "234e54ea3fa3703b0b96abd1dccb1191df40e99bae299cd301fc0e0d2d2abedc",
+        "field": "decision_basis",
+        "metadata_path": "repo://experiments/feature_validation/F02_dynamic_questioning/responses/S1_C01_FIRST/metadata.json",
+        "metadata_sha256": "546e835e8061f6c9e5c129300ab796b00928f175a21ba261c626992137b22143"
+      }
+    }
+  },
+  {
+    "check_id": "A02",
+    "case_id": "A",
+    "args": [
+      3
+    ],
+    "source_version": "original",
+    "expected_verification": "refuted",
+    "claim": {
+      "kind": "output_equals",
+      "text": "原版solve(3)返回6。",
+      "args": [
+        3
+      ],
+      "source_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+      "source_version": "original",
+      "origin": "author_negative_control_not_model_output",
+      "mapping_origin": "author_explicit_mapping_not_NL_model_judgment",
+      "value": 6
+    }
+  },
+  {
+    "check_id": "A03",
+    "case_id": "A",
+    "args": [
+      3
+    ],
+    "source_version": "original",
+    "expected_verification": "inconclusive",
+    "claim": {
+      "kind": "non_executable",
+      "text": "尚不清楚学生如何理解 range 的终点边界。",
+      "args": [
+        3
+      ],
+      "source_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+      "source_version": "original",
+      "origin": "historical_real_AI_statement",
+      "mapping_origin": "author_explicit_mapping_not_NL_model_judgment",
+      "source": {
+        "path": "repo://experiments/feature_validation/F02_dynamic_questioning/responses/S1_C01_FIRST/raw_response.json",
+        "sha256": "234e54ea3fa3703b0b96abd1dccb1191df40e99bae299cd301fc0e0d2d2abedc",
+        "field": "uncertainties/0",
+        "metadata_path": "repo://experiments/feature_validation/F02_dynamic_questioning/responses/S1_C01_FIRST/metadata.json",
+        "metadata_sha256": "546e835e8061f6c9e5c129300ab796b00928f175a21ba261c626992137b22143"
+      }
+    }
+  },
+  {
+    "check_id": "B01",
+    "case_id": "B",
+    "args": [
+      1
+    ],
+    "source_version": "local_patch",
+    "expected_verification": "supported",
+    "claim": {
+      "kind": "output_equals",
+      "text": "local_patch 在 n=1 时通过",
+      "args": [
+        1
+      ],
+      "source_hash": "f522c3c3b9e5f9fe77f903fa0b844409f623792972a701863bab7fbb56117c42",
+      "source_version": "local_patch",
+      "origin": "historical_real_AI_statement",
+      "mapping_origin": "author_explicit_mapping_not_NL_model_judgment",
+      "value": 1,
+      "source": {
+        "path": "repo://experiments/feature_validation/F02_dynamic_questioning/responses/S1_C03_wrong_T2/raw_response.json",
+        "sha256": "7daec34de9645f8984eb1c2accd03af0497df2301db7b2431ba12ef7a2cd32d3",
+        "field": "student_message",
+        "metadata_path": "repo://experiments/feature_validation/F02_dynamic_questioning/responses/S1_C03_wrong_T2/metadata.json",
+        "metadata_sha256": "f92e0321f51381c958886e38a944cf829375f57e52c7830f05e15b8bdda15c5c"
+      }
+    }
+  },
+  {
+    "check_id": "B02",
+    "case_id": "B",
+    "args": [
+      3
+    ],
+    "source_version": "local_patch",
+    "expected_verification": "refuted",
+    "claim": {
+      "kind": "all_inputs_correct",
+      "text": "局部改动版在n=1通过，说明它已经修好了，其它返回部分不用看。",
+      "args": [
+        3
+      ],
+      "source_hash": "f522c3c3b9e5f9fe77f903fa0b844409f623792972a701863bab7fbb56117c42",
+      "source_version": "local_patch",
+      "origin": "frozen_simulated_student_quoted_by_real_AI_not_AI_own_judgment",
+      "mapping_origin": "author_explicit_mapping_not_NL_model_judgment",
+      "source": {
+        "path": "repo://experiments/feature_validation/F02_dynamic_questioning/responses/S1_C03_wrong_T2/raw_response.json",
+        "sha256": "7daec34de9645f8984eb1c2accd03af0497df2301db7b2431ba12ef7a2cd32d3",
+        "field": "answer_quotes/0",
+        "metadata_path": "repo://experiments/feature_validation/F02_dynamic_questioning/responses/S1_C03_wrong_T2/metadata.json",
+        "metadata_sha256": "f92e0321f51381c958886e38a944cf829375f57e52c7830f05e15b8bdda15c5c"
+      }
+    }
+  },
+  {
+    "check_id": "B03",
+    "case_id": "B",
+    "args": [
+      3
+    ],
+    "source_version": "local_patch",
+    "expected_verification": "inconclusive",
+    "claim": {
+      "kind": "output_equals",
+      "text": "原版的 5",
+      "args": [
+        3
+      ],
+      "source_hash": "9774133aad81f658c9fdf48e5188f3ef1132513d491ac58072a7f612f4d7cda0",
+      "source_version": "original",
+      "origin": "historical_real_AI_statement",
+      "mapping_origin": "author_explicit_mapping_not_NL_model_judgment",
+      "value": 5,
+      "source": {
+        "path": "repo://experiments/feature_validation/F02_dynamic_questioning/responses/S1_C03_unexpected_T2/raw_response.json",
+        "sha256": "2f7ea1235ce032be66bbe54dca2fa7f72ee02d564008c93e1f44d9f0e2d631a3",
+        "field": "student_message",
+        "metadata_path": "repo://experiments/feature_validation/F02_dynamic_questioning/responses/S1_C03_unexpected_T2/metadata.json",
+        "metadata_sha256": "005dd5c2b5afebd00a64db092b6395fdd7c7e6d1599692e9a2d9279ed4403336"
+      }
+    }
+  },
+  {
+    "check_id": "C01",
+    "case_id": "C",
+    "args": [
+      [
+        -3
+      ]
+    ],
+    "source_version": "original",
+    "expected_verification": "supported",
+    "claim": {
+      "kind": "output_equals",
+      "text": "预测`solve([-3])`返回`-3`",
+      "args": [
+        [
+          -3
+        ]
+      ],
+      "source_hash": "29b83db76b659c30f96f49c8ad851f6de7051bf7412f373abfbb8ccd3e66b096",
+      "source_version": "original",
+      "origin": "historical_real_AI_statement",
+      "mapping_origin": "author_explicit_mapping_not_NL_model_judgment",
+      "value": -3,
+      "source": {
+        "path": "repo://experiments/round5_ui_model/responses/generation_v4/S2_05.md",
+        "sha256": "ffed1fb8e346de8231304c1bd1249b5884f797a4fe53949b87fabaa7c75f276d",
+        "field": null,
+        "metadata_path": "repo://experiments/round5_ui_model/responses/generation_v4/S2_05.meta.json",
+        "metadata_sha256": "9bfa24abb25b8b78edf4e498c7c85060ff775438ff0b5bf1fc42422fa81ea63d"
+      }
+    }
+  },
+  {
+    "check_id": "C02",
+    "case_id": "C",
+    "args": [
+      [
+        -3,
+        0
+      ]
+    ],
+    "source_version": "original",
+    "expected_verification": "supported",
+    "claim": {
+      "kind": "output_equals",
+      "text": "`solve([-3,0])`返回`0`",
+      "args": [
+        [
+          -3,
+          0
+        ]
+      ],
+      "source_hash": "29b83db76b659c30f96f49c8ad851f6de7051bf7412f373abfbb8ccd3e66b096",
+      "source_version": "original",
+      "origin": "historical_real_AI_statement",
+      "mapping_origin": "author_explicit_mapping_not_NL_model_judgment",
+      "value": 0,
+      "source": {
+        "path": "repo://experiments/round5_ui_model/responses/generation_v4/S2_05.md",
+        "sha256": "ffed1fb8e346de8231304c1bd1249b5884f797a4fe53949b87fabaa7c75f276d",
+        "field": null,
+        "metadata_path": "repo://experiments/round5_ui_model/responses/generation_v4/S2_05.meta.json",
+        "metadata_sha256": "9bfa24abb25b8b78edf4e498c7c85060ff775438ff0b5bf1fc42422fa81ea63d"
+      }
+    }
+  },
+  {
+    "check_id": "C03",
+    "case_id": "C",
+    "args": [
+      [
+        -5,
+        -2
+      ]
+    ],
+    "source_version": "original",
+    "expected_verification": "inconclusive",
+    "claim": {
+      "kind": "non_executable",
+      "text": "未发现符合题目输入前提的正确性错误",
+      "args": [
+        [
+          -5,
+          -2
+        ]
+      ],
+      "source_hash": "29b83db76b659c30f96f49c8ad851f6de7051bf7412f373abfbb8ccd3e66b096",
+      "source_version": "original",
+      "origin": "historical_real_AI_statement",
+      "mapping_origin": "author_explicit_mapping_not_NL_model_judgment",
+      "source": {
+        "path": "repo://experiments/round5_ui_model/responses/generation_v4/S1_05.md",
+        "sha256": "e6f7c527f8e52d4a7e80596b64f254647397763aa6654cd9e3f0414969b9ed9c",
+        "field": null,
+        "metadata_path": "repo://experiments/round5_ui_model/responses/generation_v4/S1_05.meta.json",
+        "metadata_sha256": "55fad2aa33d8be5133bd8fb88a3b66b0dcb11becc7c36be27f8990e84496b0c6"
+      }
+    }
+  }
+]

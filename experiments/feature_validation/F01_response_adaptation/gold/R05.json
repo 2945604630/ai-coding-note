@@ -1,0 +1,19 @@
+{
+  "scenario_id": "R05",
+  "case_id": "07",
+  "private_marker": "F01_PRIVATE_R05",
+  "expected_interpretation": "clear_understanding",
+  "allowed_actions": [
+    "request_self_modification",
+    "suspend_for_choice"
+  ],
+  "supported_facts": "正确-2、输入候选区别，愿意改；不能推长期掌握。",
+  "not_supported": [
+    "long_term_mastery",
+    "persistent_misconception",
+    "independent_repair_success"
+  ],
+  "repeated_question_forbidden": true,
+  "reference_origin": "author_review_of_simulated_reply; no independent human",
+  "needs_human_review": true
+}

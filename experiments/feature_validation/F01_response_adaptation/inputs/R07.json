@@ -1,0 +1,47 @@
+{
+  "input_version": "F01_v1",
+  "data_origin": "simulated_student_reply",
+  "case": {
+    "case_id": "07",
+    "task": "max",
+    "domain": "default",
+    "statement": "返回非空整数列表最大值，允许全负数；长度1..8，元素在-20..20。",
+    "input_contract": "solve只接收一个整数列表；长度1..8，元素在-20..20，bool不算整数，允许全部为负。",
+    "source": "def solve(xs):\n    return max([0] + xs)\n",
+    "source_sha256": "6ba357ba297020e49def79ea7eb231f96e602aa6a2f5a10b30e1e41004b3cd4c",
+    "evidence": [
+      {
+        "evidence_id": "E01",
+        "args": [
+          [
+            -5,
+            -2
+          ]
+        ],
+        "status": "ok",
+        "value": 0,
+        "expected": -2,
+        "passed": false,
+        "code_hash": "6ba357ba297020e49def79ea7eb231f96e602aa6a2f5a10b30e1e41004b3cd4c"
+      },
+      {
+        "evidence_id": "E02",
+        "args": [
+          [
+            2,
+            9
+          ]
+        ],
+        "status": "ok",
+        "value": 9,
+        "expected": 9,
+        "passed": true,
+        "code_hash": "6ba357ba297020e49def79ea7eb231f96e602aa6a2f5a10b30e1e41004b3cd4c"
+      }
+    ],
+    "teaching_question": "你在列表前添加0，原本是想解决什么问题？",
+    "question_provenance": "previous real S1 question only; prior explanation and repair not supplied"
+  },
+  "previous_question": "你在列表前添加0，原本是想解决什么问题？",
+  "student_answer": "0没问题吧？我有点说不清。"
+}

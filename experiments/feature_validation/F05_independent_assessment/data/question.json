@@ -1,0 +1,20 @@
+{
+  "question_id": "F05_MAX_01",
+  "question_version": "v1",
+  "case_id": "MAX",
+  "content_hash": "95e68bedbdd8f50a4dacc8daf0179827d557a807135db987226556a4c003271c",
+  "statement": "返回非空整数列表最大值，允许全负数；长度1..8，元素在-20..20。",
+  "input_contract": "solve只接收一个整数列表；长度1..8，元素在-20..20，bool不算整数，允许全部为负。",
+  "source": {
+    "path": "repo://experiments/round5_ui_model/cases/05.json",
+    "sha256": "9b8023dcd5345b68ea1fdda06c3b647fa917c4032f97e5e0e59e283ec33695d1"
+  },
+  "original_task": {
+    "question_id": "F04_SUM",
+    "version": "F04_v1",
+    "task": "inclusive_sum",
+    "evidence_path": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/result.json"
+  },
+  "relationship": "Different reviewed task from the original inclusive_sum; not a validated equivalent transfer test",
+  "novelty_scope": "not previously displayed in this simulated learner session; historically reused research item"
+}

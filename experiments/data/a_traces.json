@@ -1,0 +1,436 @@
+[
+  {
+    "id": "a01",
+    "purpose": "程序错误但知识解释正确",
+    "events": [
+      {
+        "type": "program",
+        "id": "p1",
+        "cause": "init_zero",
+        "status": "supported"
+      },
+      {
+        "type": "hypothesis",
+        "id": "g1",
+        "concept": "initialization",
+        "program_id": "p1"
+      },
+      {
+        "type": "probe",
+        "hypothesis_id": "g1",
+        "correct": true,
+        "reviewed": true
+      },
+      {
+        "type": "recommend",
+        "hypothesis_id": "g1"
+      }
+    ],
+    "expected": {
+      "supported_gaps": [],
+      "new_success": 0,
+      "blocked_recommendations": 1
+    },
+    "provenance": "scripted_events_not_real_students"
+  },
+  {
+    "id": "a02",
+    "purpose": "有效诊断问暴露误解",
+    "events": [
+      {
+        "type": "program",
+        "id": "p1",
+        "cause": "init_zero",
+        "status": "supported"
+      },
+      {
+        "type": "hypothesis",
+        "id": "g1",
+        "concept": "initialization",
+        "program_id": "p1"
+      },
+      {
+        "type": "probe",
+        "hypothesis_id": "g1",
+        "correct": false,
+        "reviewed": true
+      },
+      {
+        "type": "recommend",
+        "hypothesis_id": "g1"
+      }
+    ],
+    "expected": {
+      "supported_gaps": [
+        "g1"
+      ],
+      "active_recommendations": 1,
+      "new_success": 0
+    },
+    "provenance": "scripted_events_not_real_students"
+  },
+  {
+    "id": "a03",
+    "purpose": "相同求和症状、程序原因分别记录",
+    "events": [
+      {
+        "type": "program",
+        "id": "p1",
+        "cause": "loop_end_excluded",
+        "status": "supported"
+      },
+      {
+        "type": "program",
+        "id": "p2",
+        "cause": "accumulator_overwrite",
+        "status": "supported"
+      },
+      {
+        "type": "hypothesis",
+        "id": "g1",
+        "concept": "loop_end",
+        "program_id": "p1"
+      },
+      {
+        "type": "hypothesis",
+        "id": "g2",
+        "concept": "accumulation",
+        "program_id": "p2"
+      }
+    ],
+    "expected": {
+      "supported_gaps": [],
+      "program_causes": [
+        "loop_end_excluded",
+        "accumulator_overwrite"
+      ],
+      "new_success": 0
+    },
+    "provenance": "scripted_events_not_real_students"
+  },
+  {
+    "id": "a04",
+    "purpose": "AI 精确修改后原题通过",
+    "events": [
+      {
+        "type": "program",
+        "id": "p1",
+        "cause": "init_zero",
+        "status": "supported"
+      },
+      {
+        "type": "hypothesis",
+        "id": "g1",
+        "concept": "initialization",
+        "program_id": "p1"
+      },
+      {
+        "type": "ai_patch",
+        "family": "original"
+      },
+      {
+        "type": "submit",
+        "role": "original",
+        "correct": true,
+        "family": "original",
+        "reviewed": true,
+        "concept_match": true,
+        "external_assistance": "none",
+        "runtime_status": "ok",
+        "concept": "initialization"
+      }
+    ],
+    "expected": {
+      "supported_gaps": [],
+      "kinds": [
+        "assisted_success"
+      ],
+      "new_success": 0
+    },
+    "provenance": "scripted_events_not_real_students"
+  },
+  {
+    "id": "a05",
+    "purpose": "原题独立通过但新题失败",
+    "events": [
+      {
+        "type": "submit",
+        "role": "original",
+        "correct": true,
+        "family": "original",
+        "reviewed": true,
+        "concept_match": true,
+        "external_assistance": "none",
+        "runtime_status": "ok",
+        "concept": "initialization"
+      },
+      {
+        "type": "submit",
+        "role": "new",
+        "correct": false,
+        "family": "new_family",
+        "reviewed": true,
+        "concept_match": true,
+        "external_assistance": "none",
+        "runtime_status": "ok",
+        "concept": "initialization"
+      }
+    ],
+    "expected": {
+      "supported_gaps": [],
+      "kinds": [
+        "original_independent_success",
+        "new_failure"
+      ],
+      "new_success": 0
+    },
+    "provenance": "scripted_events_not_real_students"
+  },
+  {
+    "id": "a06",
+    "purpose": "原题失败后新题独立通过",
+    "events": [
+      {
+        "type": "submit",
+        "role": "original",
+        "correct": false,
+        "family": "original",
+        "reviewed": true,
+        "concept_match": true,
+        "external_assistance": "none",
+        "runtime_status": "ok",
+        "concept": "initialization"
+      },
+      {
+        "type": "submit",
+        "role": "new",
+        "correct": true,
+        "family": "new_family",
+        "reviewed": true,
+        "concept_match": true,
+        "external_assistance": "none",
+        "runtime_status": "ok",
+        "concept": "initialization"
+      }
+    ],
+    "expected": {
+      "supported_gaps": [],
+      "kinds": [
+        "original_failure",
+        "new_independent_success"
+      ],
+      "new_success": 1
+    },
+    "provenance": "scripted_events_not_real_students"
+  },
+  {
+    "id": "a07",
+    "purpose": "看过答案后重置请求不能恢复未见资格",
+    "events": [
+      {
+        "type": "answer_seen",
+        "family": "new_family"
+      },
+      {
+        "type": "reset_attempts"
+      },
+      {
+        "type": "submit",
+        "role": "new",
+        "correct": true,
+        "family": "new_family",
+        "reviewed": true,
+        "concept_match": true,
+        "external_assistance": "none",
+        "runtime_status": "ok",
+        "concept": "initialization"
+      }
+    ],
+    "expected": {
+      "supported_gaps": [],
+      "kinds": [
+        "assisted_success"
+      ],
+      "new_success": 0
+    },
+    "provenance": "scripted_events_not_real_students"
+  },
+  {
+    "id": "a08",
+    "purpose": "外部 AI 使用情况未知",
+    "events": [
+      {
+        "type": "submit",
+        "role": "new",
+        "correct": true,
+        "family": "new_family",
+        "reviewed": true,
+        "concept_match": true,
+        "external_assistance": "unknown",
+        "runtime_status": "ok",
+        "concept": "initialization"
+      }
+    ],
+    "expected": {
+      "supported_gaps": [],
+      "kinds": [
+        "independence_unknown"
+      ],
+      "new_success": 0
+    },
+    "provenance": "scripted_events_not_real_students"
+  },
+  {
+    "id": "a09",
+    "purpose": "验收题未经审核和概念不匹配",
+    "events": [
+      {
+        "type": "submit",
+        "role": "new",
+        "correct": true,
+        "family": "new_family",
+        "reviewed": false,
+        "concept_match": true,
+        "external_assistance": "none",
+        "runtime_status": "ok",
+        "concept": "initialization"
+      },
+      {
+        "type": "submit",
+        "role": "new",
+        "correct": true,
+        "family": "other_new",
+        "reviewed": true,
+        "concept_match": false,
+        "external_assistance": "none",
+        "runtime_status": "ok",
+        "concept": "initialization"
+      }
+    ],
+    "expected": {
+      "supported_gaps": [],
+      "kinds": [
+        "invalid_assessment",
+        "invalid_assessment"
+      ],
+      "new_success": 0
+    },
+    "provenance": "scripted_events_not_real_students"
+  },
+  {
+    "id": "a10",
+    "purpose": "诊断撤回并撤销旧推荐",
+    "events": [
+      {
+        "type": "program",
+        "id": "p1",
+        "cause": "init_zero",
+        "status": "supported"
+      },
+      {
+        "type": "hypothesis",
+        "id": "g1",
+        "concept": "initialization",
+        "program_id": "p1"
+      },
+      {
+        "type": "probe",
+        "hypothesis_id": "g1",
+        "correct": false,
+        "reviewed": true
+      },
+      {
+        "type": "recommend",
+        "hypothesis_id": "g1"
+      },
+      {
+        "type": "program",
+        "id": "p1",
+        "cause": "init_zero",
+        "status": "refuted"
+      },
+      {
+        "type": "withdraw",
+        "hypothesis_id": "g1",
+        "reason": "new evidence invalidates diagnosis"
+      }
+    ],
+    "expected": {
+      "supported_gaps": [],
+      "revoked_recommendations": 1,
+      "withdrawn": [
+        "g1"
+      ],
+      "new_success": 0
+    },
+    "provenance": "scripted_events_not_real_students"
+  },
+  {
+    "id": "a11",
+    "purpose": "环境失败不记认知失败",
+    "events": [
+      {
+        "type": "program",
+        "id": "p1",
+        "cause": "init_zero",
+        "status": "pending"
+      },
+      {
+        "type": "submit",
+        "role": "new",
+        "correct": false,
+        "family": "new_family",
+        "reviewed": true,
+        "concept_match": true,
+        "external_assistance": "none",
+        "runtime_status": "environment_error",
+        "concept": "initialization"
+      }
+    ],
+    "expected": {
+      "supported_gaps": [],
+      "kinds": [
+        "environment_failure"
+      ],
+      "new_success": 0
+    },
+    "provenance": "scripted_events_not_real_students"
+  },
+  {
+    "id": "a12",
+    "purpose": "正常原题与未见新题独立成功",
+    "events": [
+      {
+        "type": "submit",
+        "role": "original",
+        "correct": true,
+        "family": "original",
+        "reviewed": true,
+        "concept_match": true,
+        "external_assistance": "none",
+        "runtime_status": "ok",
+        "concept": "initialization"
+      },
+      {
+        "type": "submit",
+        "role": "new",
+        "correct": true,
+        "family": "new_family",
+        "reviewed": true,
+        "concept_match": true,
+        "external_assistance": "none",
+        "runtime_status": "ok",
+        "concept": "initialization"
+      }
+    ],
+    "expected": {
+      "supported_gaps": [],
+      "kinds": [
+        "original_independent_success",
+        "new_independent_success"
+      ],
+      "new_success": 1
+    },
+    "provenance": "scripted_events_not_real_students"
+  }
+]

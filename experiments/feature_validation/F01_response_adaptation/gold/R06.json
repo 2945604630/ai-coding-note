@@ -1,0 +1,20 @@
+{
+  "scenario_id": "R06",
+  "case_id": "07",
+  "private_marker": "F01_PRIVATE_R06",
+  "expected_interpretation": "explicit_wrong_claim",
+  "allowed_actions": [
+    "show_counterexample",
+    "continue_asking",
+    "tiered_hint"
+  ],
+  "supported_facts": "明确把规范最大值限定非负；纠正当前陈述或合法负数反例，不确诊长期缺陷。",
+  "not_supported": [
+    "long_term_mastery",
+    "persistent_misconception",
+    "independent_repair_success"
+  ],
+  "repeated_question_forbidden": false,
+  "reference_origin": "author_review_of_simulated_reply; no independent human",
+  "needs_human_review": true
+}

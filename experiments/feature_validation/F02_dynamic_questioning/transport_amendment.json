@@ -1,0 +1,14 @@
+{
+  "utc": "2026-10-10T13:09:17.785455+00:00",
+  "before_formal_calls": true,
+  "reason": "CLI reserved builtin provider override rejected in local preflight; restore successful F01 default, no sample/rule/rubric change",
+  "original_freeze_sha256": "7acb3ea6a07cb00164af02f4b3bf9282dccaf6fd3a9c67435dc6d5b9509cd845",
+  "preserved_originals": {
+    "native.py": "preflight/native_before_transport_fix.py",
+    "core.py": "preflight/core_before_amendment_support.py"
+  },
+  "sha256": {
+    "native.py": "59e5c4872613774d62412bf19f87abc307ebc23906c60614fcf272dd637f0665",
+    "core.py": "66ad8cd91bad363abc516cc5d57df5a2f16ceb0cb18a407f28ce155126860c8a"
+  }
+}

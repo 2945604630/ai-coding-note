@@ -1,0 +1,176 @@
+"""Student-owned edits, paired F03 evidence, and bounded deterministic feedback."""
+from datetime import datetime, timezone
+import difflib
+from pathlib import Path
+import time
+import traceback
+import uuid
+
+from experiments.common import digest, dump, valid_args
+from experiments.runner import source_hash
+from ..F01_response_adaptation.core import ACTIONS
+from ..F02_dynamic_questioning import core as f02
+from ..F03_evidence_verification import verifier as f03
+from .catalog import ROOT, load
+
+
+def difference(before, after):
+    if before is None or after is None:
+        return {'changed': None, 'locations': [], 'unified_diff': None}
+    a, b = before.splitlines(keepends=True), after.splitlines(keepends=True)
+    locations = [{'operation': tag, 'before_start_line': i + 1, 'before_end_line_exclusive': j + 1,
+                  'after_start_line': k + 1, 'after_end_line_exclusive': l + 1}
+                 for tag, i, j, k, l in difflib.SequenceMatcher(a=a, b=b).get_opcodes() if tag != 'equal']
+    return {'changed': source_hash(before) != source_hash(after), 'locations': locations,
+            'unified_diff': ''.join(difflib.unified_diff(a, b, fromfile='before', tofile='after'))}
+
+
+def feedback(result, case, context):
+    status = result['status']
+    facts = [f"输入{t['args']}：旧版返回{t['before']['actual_output']}，"
+             f"新版返回{t['after']['actual_output']}，参考为{t['after']['reference_output']}，"
+             f"判定{t['classification']}。" for t in result['tests'] if t['classification'] != 'unable_to_compare']
+    if status == 'specified_tests_passed':
+        action = 'suspend_for_choice'
+        message = '指定输入均已通过。可以保存当前版本或选择后续核验；本轮不再重复此前追问。'
+    elif status in ['regression_detected', 'partial_success', 'still_failing']:
+        action = 'request_self_modification'
+        message = ('本次修改引入了原本通过输入的回归。' if status == 'regression_detected' else
+                   '部分输入改善，但仍有失败。' if status == 'partial_success' else '指定输入仍有失败。')
+        message += '请自行检查记录中的失败输入，保留修改理由，再提交新版本。'
+    else:
+        action = 'clarify_meaning'
+        message = '当前版本或验证材料尚不可核验；代码与失败记录已保存。请先审核版本或补充所缺材料，暂不判断修改效果。'
+    output = {'interpretation': '仅记录提交的修改与指定输入上的执行变化，不推断学生理解。',
+              'answer_quotes': [context['student_answer']] if context.get('student_answer') else [],
+              'evidence_sufficiency': 'partial' if result['tests'] else 'insufficient',
+              'next_action': action, 'student_message': ' '.join(facts + [message,
+                  '这些结果不确认整体修复、唯一根因或知识掌握。']),
+              'decision_basis': '依据本次同输入、不同源码哈希的 F03 返回值与参考比较；未使用模型预测。',
+              'uncertainties': ['有限测试之外的行为、修改理由与学生理解未确认；教学措辞需人工复核。'],
+              'evidence_refs': ['SOURCE', 'CONTRACT'] + [e['evidence_id'] for e in case['evidence']],
+              'execution_requests': [], 'question_intent': '呈现修改效果并决定等待自主修改或后续选择，避免重复追问。',
+              'stop_questioning': True, 'stop_reason': 'await_new_evidence'}
+    assert output['next_action'] in ACTIONS
+    public = dict(case=case, student_answer=context.get('student_answer', ''),
+                  previous_question=context.get('previous_question', ''), history=context.get('history', []))
+    checked = f02.validate(output, public)  # No execution_requests: do not re-execute through F02.
+    return output, checked, f02.termination(output, 1)
+
+
+def compare(case_id, before_version, after_version, *, inputs=None, submitted_source=None,
+            before_hash=None, after_hash=None, context=None, record_dir=None,
+            origin='simulated_registered_change'):
+    started = time.perf_counter()
+    directory = Path(record_dir) if record_dir is not None else ROOT / 'user_trials' / (
+        datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ_') + uuid.uuid4().hex[:8])
+    directory = directory.resolve()
+    directory.mkdir(parents=True, exist_ok=False)
+    context = context or {}
+    dump(directory / 'request.json', {'case_id': case_id, 'before_version': before_version,
+         'after_version': after_version, 'inputs': inputs, 'submitted_source': submitted_source,
+         'before_hash': before_hash, 'after_hash': after_hash, 'context': context, 'data_origin': origin})
+    result = {'case_id': case_id, 'started_utc': datetime.now(timezone.utc).isoformat(),
+              'data_origin': origin, 'status': 'blocked', 'error_reason': None, 'tests': [],
+              'before': {'version': before_version, 'source_hash': None},
+              'after': {'version': after_version, 'source_hash': None, 'parent_source_hash': None},
+              'modification': difference(None, None), 'summary': {},
+              'overall_repair_confirmed': None, 'student_mastery_confirmed': None,
+              'needs_human_review': True, 'new_model_calls': 0,
+              'context': context, 'evidence_files': {'request': str(directory / 'request.json'),
+              'result': str(directory / 'result.json')}, 'implementation_sha256': digest(Path(__file__))}
+    case = {'source': '', 'statement': '', 'evidence': [], 'task': 'inclusive_sum', 'domain': 'default'}
+
+    def save_source(side, source):
+        if source is not None:
+            path = directory / (side + '.py')
+            path.write_bytes(source.encode('utf-8'))
+            result[side].update(source_hash=source_hash(source), source_file=str(path))
+
+    def finish(status, error=None, detail=None):
+        result.update(status=status, error_reason=error)
+        if error:
+            dump(directory / 'failure.json', {'error': error, 'detail': detail})
+            result['evidence_files']['failure'] = str(directory / 'failure.json')
+        out, checked, end = feedback(result, case, context)
+        result.update(feedback=out, feedback_validation=checked, termination=end,
+                      ended_utc=datetime.now(timezone.utc).isoformat(),
+                      elapsed_ms=round((time.perf_counter() - started) * 1000, 3))
+        if not checked['display_safe']:
+            result['status'] = 'feedback_protocol_failed'
+        dump(directory / 'result.json', result)
+        return result
+
+    save_source('after', submitted_source)
+    try:
+        registry = load()
+    except (OSError, ValueError, KeyError) as exc:
+        return finish('blocked', 'registry_integrity_error', str(exc))
+    entry = registry.get(case_id)
+    if entry is None:
+        return finish('blocked', 'unknown_case')
+    case.update(task=entry['task'], domain=entry['domain'], statement=entry['statement'])
+    result['input_contract'] = entry['input_contract']
+    before = entry['versions'].get(before_version)
+    if before is None:
+        return finish('blocked', 'unknown_before_version')
+    save_source('before', before['source'])
+    case['source'] = before['source']
+    result['after']['parent_source_hash'] = before['source_hash']
+    if before_hash is not None and before_hash != before['source_hash']:
+        return finish('blocked', 'before_hash_mismatch')
+    after = entry['versions'].get(after_version)
+    if after is None:
+        result['modification'] = difference(before['source'], submitted_source)
+        return finish('pending_review', 'unknown_after_version')
+    if submitted_source is not None and source_hash(submitted_source) != after['source_hash']:
+        result['modification'] = difference(before['source'], submitted_source)
+        return finish('pending_review', 'submitted_source_not_registered')
+    save_source('after', after['source'])
+    result['modification'] = difference(before['source'], after['source'])
+    if after_hash is not None and after_hash != after['source_hash']:
+        return finish('blocked', 'after_hash_mismatch')
+    selected = entry['approved_inputs'] if inputs is None else inputs
+    if not isinstance(selected, list) or not selected:
+        return finish('blocked', 'empty_or_invalid_test_set')
+    for args in selected:
+        if not valid_args(entry['task'], args, entry['domain'])[0]:
+            return finish('blocked', 'illegal_input')
+        if not any(f03.same_value(args, approved) for approved in entry['approved_inputs']):
+            return finish('blocked', 'unapproved_input')
+    if len({str(args) for args in selected}) != len(selected):
+        return finish('blocked', 'duplicate_test_input')
+    dump(directory / 'diff.json', result['modification'])
+    result['evidence_files']['diff'] = str(directory / 'diff.json')
+    try:
+        for index, args in enumerate(selected, 1):
+            before_result = f03.verify(case_id, args, source_version=before_version,
+                expected_source_hash=before['source_hash'], record_dir=directory / f'T{index}_before', catalog='F04')
+            after_result = f03.verify(case_id, args, source_version=after_version,
+                expected_source_hash=after['source_hash'], record_dir=directory / f'T{index}_after', catalog='F04')
+            if not before_result['execution_success'] or not after_result['execution_success']:
+                classification = 'unable_to_compare'
+            else:
+                a, b = before_result['matches_reference'], after_result['matches_reference']
+                classification = ('maintained_pass' if a else 'improved') if b else ('regression' if a else 'remaining_failure')
+            result['tests'].append({'test_id': 'T' + str(index), 'args': args, 'before': before_result,
+                'after': after_result, 'classification': classification,
+                'output_changed': f03.same_value(before_result['actual_output'], after_result['actual_output']) is False
+                                  if classification != 'unable_to_compare' else None})
+            for side, packet in [('before', before_result), ('after', after_result)]:
+                if packet['execution_success']:
+                    case['evidence'].append({'evidence_id': f'T{index}_{side}', 'source_version': packet['source_version'],
+                         'source_hash': packet['source_hash'], 'args': args, 'value': packet['actual_output'],
+                         'expected': packet['reference_output'], 'status': 'ok'})
+            dump(directory / 'partial_results.json', result['tests'])
+    except Exception:
+        return finish('execution_incomplete', 'parent_exception', traceback.format_exc())
+    result['summary'] = {kind: sum(t['classification'] == kind for t in result['tests'])
+                        for kind in ['maintained_pass', 'improved', 'regression', 'remaining_failure', 'unable_to_compare']}
+    result['summary']['test_count'] = len(result['tests'])
+    result['summary']['after_passed'] = sum(t['after']['matches_reference'] is True for t in result['tests'])
+    status = ('execution_incomplete' if result['summary']['unable_to_compare'] else
+              'regression_detected' if result['summary']['regression'] else
+              'specified_tests_passed' if result['summary']['after_passed'] == len(result['tests']) else
+              'partial_success' if result['summary']['improved'] else 'still_failing')
+    return finish(status)

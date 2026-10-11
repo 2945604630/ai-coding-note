@@ -1,0 +1,38 @@
+{
+  "utc": "2026-10-10T13:08:35.906477+00:00",
+  "before_formal_calls": true,
+  "simulated_paths": 12,
+  "case_count": 3,
+  "max_teacher_calls": 27,
+  "rule_first": {
+    "utc": "2026-10-10T13:06:31.550373+00:00",
+    "before_response_bank_authored": true,
+    "sha256": {
+      "baseline.py": "f4f2d4c4e9c114b0c42386840d449ae7b7b29ef1a48d4da8214db5e31ac251f0",
+      "F02_test_plan.md": "23e0cb61c8a617a32987e3cc355bb4a7a4646b22a0eae648997f14cb03033b87"
+    }
+  },
+  "sha256": {
+    "baseline.py": "f4f2d4c4e9c114b0c42386840d449ae7b7b29ef1a48d4da8214db5e31ac251f0",
+    "cli.py": "b5ae914cd84e99f232e0a3ac85db847c8d2a8fbc0f9514db33eb6a5bfc84f86c",
+    "core.py": "c591fbe76be4cc757adf71ead23e96bc88f4215aba2782b2c96ca96f802bd4fd",
+    "F02_test_plan.md": "23e0cb61c8a617a32987e3cc355bb4a7a4646b22a0eae648997f14cb03033b87",
+    "historical_manifest.json": "dc73010c0b20656cf658687a7704c377abf4f7ad5257f0f9a31f1620d6e95596",
+    "native.py": "cba6c3ed19fbb5b30acb9afa0a12326f4f27e980b33b69eba8f7928cc5ecacef",
+    "prepare.py": "a7202dc3a31924f678551c4c5fa0c8d5ffaa313f5dbb6c93b6af16ba5bc36226",
+    "README.md": "3da843986e8eeec79a3ce0bd17dd99ef5d0993b2da1aec23d2d39dfe0f11c844",
+    "results_red.json": "279b2c06f2d1a533777279722a038445ebae106b235af76741eddf26cb89d0b3",
+    "rule_freeze.json": "8c81c44995aaf014550a99fc0e9b4c5b44b2d3b370ca168976a8adb013c504ed",
+    "run.py": "cdf4944b86a062ed2c200b40c3ebab28885da50f70188c480301b5aabe15249f",
+    "schema.json": "e8b041d399e9f9f9be65e89f6ac59c86eb1627dfa5ac1e65a8c576613ff4316f",
+    "simulator.py": "f2e0432dc850b5e9b42206321d9d5eee09508df493683a9b8467119a719d9240",
+    "test_core.py": "3fcb536a3c675f3d03f0aae5ff36e953d69f3a74d5af494ffef8a9a341899b8e",
+    "__init__.py": "c33a5f3b613ced0fa24fa4b08da9b2a1f7846de3a80f9b67c25f60a97768de75",
+    "cases\\C01.json": "9439ccfd7b5effa8bc94ed1e54b264c965387ffb036fb71e9256282c2538dec3",
+    "cases\\C02.json": "88bc610038b64ac72d64e879a435ee7e1c57a9a766627a40f1d72ba8a35b4236",
+    "cases\\C03.json": "ef5d2356032cebc87aaaa6aaa929ddd40eed2b050f3136565130282f0a21989e",
+    "gold\\paths.json": "c7087293ec50f6db6913664282e480a94bf5ee73d7634465673826904ccb7927",
+    "gold\\response_bank.json": "5c36170ade0fc2fd19da46d3d0dbca09558cafa56d221f3616a3c6d7628d197d",
+    "results\\frozen_execution_grid.json": "2a264eb78f8a9aec57c3371804a0101a15bf8fa24a57d850fce72f0edb9c1843"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "scenario_id": "R03",
+  "case_id": "01",
+  "private_marker": "F01_PRIVATE_R03",
+  "expected_interpretation": "ambiguous",
+  "allowed_actions": [
+    "clarify_meaning",
+    "continue_asking",
+    "suspend_for_choice"
+  ],
+  "supported_facts": "3可能是实际或规范；可能动循环不能证明理解，不得确定认知缺陷。",
+  "not_supported": [
+    "long_term_mastery",
+    "persistent_misconception",
+    "independent_repair_success"
+  ],
+  "repeated_question_forbidden": false,
+  "reference_origin": "author_review_of_simulated_reply; no independent human",
+  "needs_human_review": true
+}

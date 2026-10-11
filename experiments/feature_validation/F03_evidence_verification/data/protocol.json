@@ -1,0 +1,45 @@
+{
+  "version": "F03_v1",
+  "before_formal_run": true,
+  "formal_runs": 1,
+  "formal_cases": [
+    "A",
+    "B",
+    "C"
+  ],
+  "checks_per_case": 3,
+  "new_model_calls": 0,
+  "metrics": [
+    "verifiable",
+    "correct_support",
+    "correct_refutation",
+    "wrong_support_or_refutation",
+    "inconclusive",
+    "version_mismatch_block",
+    "illegal_input_block",
+    "execution_exception"
+  ],
+  "unsupported_scopes": [
+    "learner_intent",
+    "learner_understanding",
+    "unique_root_cause",
+    "global_correctness_from_passes"
+  ],
+  "limits": {
+    "timeout_s": 1.5,
+    "output_bytes": 8192,
+    "memory_bytes": 134217728,
+    "Windows_job_process_limit": 1
+  },
+  "architecture": "Thin wrapper around experiments.runner.execute + common.valid_args/oracle; no new executor",
+  "plan": [
+    "freeze three cases/claims",
+    "red test for wrapper",
+    "implement guarded wrapper and CLI",
+    "one formal run",
+    "necessary deterministic regression and short reports"
+  ],
+  "comparison_truth": "frozen explicit predicates, checked source trace and actual execution, no AI ratings",
+  "natural_language_mapping": "author-reviewed explicit mapping; verifies normalized predicate, not arbitrary prose",
+  "guard_fixtures": "three exact source strings already in experiments/tests/test_runner.py; not teaching cases"
+}

@@ -1,0 +1,86 @@
+[
+  {
+    "scenario_id": "M01",
+    "case_id": "SUM",
+    "before_version": "original",
+    "after_version": "corrected",
+    "inputs": [
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        3
+      ]
+    ],
+    "expected_status": "specified_tests_passed",
+    "expected_classifications": [
+      "maintained_pass",
+      "improved",
+      "improved"
+    ],
+    "context": {
+      "data_origin": "author_frozen_simulated_modification_not_real_student",
+      "previous_question": "请自行修改并保留理由；核验原失败输入，也保留原本通过的输入。",
+      "student_answer": "我提交了一个修改版本，请核对前后结果。"
+    }
+  },
+  {
+    "scenario_id": "M02",
+    "case_id": "SUM",
+    "before_version": "compensated_original",
+    "after_version": "compensated_patch",
+    "inputs": [
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        3
+      ]
+    ],
+    "expected_status": "partial_success",
+    "expected_classifications": [
+      "remaining_failure",
+      "improved",
+      "remaining_failure"
+    ],
+    "context": {
+      "data_origin": "author_frozen_simulated_modification_not_real_student",
+      "previous_question": "请自行修改并保留理由；核验原失败输入，也保留原本通过的输入。",
+      "student_answer": "我提交了一个修改版本，请核对前后结果。"
+    }
+  },
+  {
+    "scenario_id": "M03",
+    "case_id": "SUM",
+    "before_version": "corrected",
+    "after_version": "compensated_patch",
+    "inputs": [
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        3
+      ]
+    ],
+    "expected_status": "regression_detected",
+    "expected_classifications": [
+      "regression",
+      "maintained_pass",
+      "regression"
+    ],
+    "context": {
+      "data_origin": "author_frozen_simulated_modification_not_real_student",
+      "previous_question": "请自行修改并保留理由；核验原失败输入，也保留原本通过的输入。",
+      "student_answer": "我提交了一个修改版本，请核对前后结果。"
+    }
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "product": "Codex CLI",
+  "model_label": "gpt-6.1-sol",
+  "thinking_setting": "xhigh",
+  "model_selection_basis": "explicit --model + authenticated CLI catalog; exact backend snapshot unknown",
+  "backend_version": null,
+  "tools": "disabled_by_CLI_config; observed_activity_recorded_separately",
+  "fresh_context": true,
+  "memory_isolated": true,
+  "custom_instructions_isolated": true,
+  "prompt_hash_matches": true,
+  "contamination_risk": true,
+  "file_isolation": "not_OS_verified; empty workdir and no reference material supplied",
+  "isolation_basis": "new exec/ephemeral; memory off; AGENTS budget zero; no parent research transcript",
+  "managed_prompt_context_attested": false,
+  "failed": false,
+  "truncated": false,
+  "elapsed_seconds": 138.551,
+  "start_utc": "2026-10-09T10:15:21.703431+00:00",
+  "end_utc": "2026-10-09T10:17:40.254309+00:00",
+  "exit_code": 0,
+  "token_usage": {
+    "input_tokens": 13804,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 625,
+    "reasoning_output_tokens": 358
+  },
+  "subscription_allocated_cost": null,
+  "thread_id": "01a12029-0611-7633-9ea6-09592005ce40",
+  "observed_tool_activity_count": 0,
+  "work_files_after": [
+    "prompt.md"
+  ],
+  "prompt_copy_verification_basis": "exact bytes fed to stdin by subprocess; archived SHA equality",
+  "expected_prompt_sha256": "7d753073960963fab61fa97be0c2aaa0e2118b297224e160dc1eeefadae45144",
+  "CLI_output_event_text_matches": true,
+  "provenance": "real_official_codex_exec_with_ChatGPT_login; not a mock",
+  "original_cli_last_message_sha256": "e6f7c527f8e52d4a7e80596b64f254647397763aa6654cd9e3f0414969b9ed9c",
+  "execution_artifacts": "repo://experiments/round5_ui_model/results/cli_automation_20261009T094819533718Z/generation_v4/S1_05",
+  "notes": "OS boundary unverified: exploratory comparison only"
+}

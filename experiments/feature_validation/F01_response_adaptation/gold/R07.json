@@ -1,0 +1,20 @@
+{
+  "scenario_id": "R07",
+  "case_id": "07",
+  "private_marker": "F01_PRIVATE_R07",
+  "expected_interpretation": "ambiguous",
+  "allowed_actions": [
+    "clarify_meaning",
+    "continue_asking",
+    "suspend_for_choice"
+  ],
+  "supported_facts": "0的对象和是否认可均不明；吧和说不清不是明确规范错误。",
+  "not_supported": [
+    "long_term_mastery",
+    "persistent_misconception",
+    "independent_repair_success"
+  ],
+  "repeated_question_forbidden": false,
+  "reference_origin": "author_review_of_simulated_reply; no independent human",
+  "needs_human_review": true
+}

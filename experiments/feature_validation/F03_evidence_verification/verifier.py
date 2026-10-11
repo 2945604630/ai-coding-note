@@ -1,0 +1,175 @@
+"""Version-bound evidence for reviewed frozen functions; not a hostile-code sandbox."""
+from datetime import datetime, timezone
+import json
+import math
+import os
+from pathlib import Path
+import time
+import traceback
+import uuid
+
+from experiments.common import digest, dump, oracle, valid_args
+from experiments.runner import audit_source, execute, source_hash
+
+ROOT = Path(__file__).resolve().parent
+MISSING = object()
+
+
+def same_value(a, b):
+    """JSON scalar/list equality retaining booleans versus integers, including nested values."""
+    return json.dumps(a, sort_keys=True, allow_nan=False) == json.dumps(b, sort_keys=True, allow_nan=False)
+
+
+def load_registry(catalog='F03'):
+    for relative, expected in json.loads((ROOT / 'freeze.json').read_text(encoding='utf-8'))['sha256'].items():
+        if digest(ROOT / relative) != expected:
+            raise ValueError('Frozen F03 input changed: ' + relative)
+    dependencies = json.loads((ROOT / 'prior_dependencies.json').read_text(encoding='utf-8'))['sha256']
+    for path, expected in dependencies.items():
+        if digest(path) != expected:
+            raise ValueError('Reviewed dependency changed: ' + path)
+    base = json.loads((ROOT / 'data/registry.json').read_text(encoding='utf-8'))
+    if catalog == 'F03':
+        return base
+    if catalog == 'F04':
+        from ..F04_self_modification.catalog import load
+        return load()
+    if catalog == 'F05':
+        from ..F05_independent_assessment.catalog import load
+        return load()
+    raise ValueError('Unknown fixed reviewed catalog: ' + str(catalog))
+
+
+def verify(case_id, args, *, source_version='original', expected_source_hash=None,
+           claim=None, reference_output=MISSING, timeout=1.5, output_limit=8192, record_dir=None, catalog='F03'):
+    """Execute only registered source; verify an explicitly normalized predicate.
+
+    claim.kind: output_equals, all_inputs_correct, or non_executable.
+    Optional claim.args/source_hash/source_version must match this execution.
+    No natural-language diagnosis, learner assessment, arbitrary source, or cached result.
+    """
+    started = time.perf_counter()
+    utc = datetime.now(timezone.utc).isoformat()
+    directory = Path(record_dir) if record_dir is not None else ROOT / 'results' / (
+        datetime.now(timezone.utc).strftime('evidence_%Y%m%dT%H%M%S%fZ_') + uuid.uuid4().hex[:8])
+    directory = directory.resolve()
+    directory.mkdir(parents=True, exist_ok=False)
+    request = {'catalog': catalog, 'case_id': case_id, 'args': args, 'source_version': source_version,
+               'expected_source_hash': expected_source_hash, 'claim': claim,
+               'reference_output_provided': reference_output is not MISSING,
+               'timeout_s': timeout, 'output_limit': output_limit}
+    if reference_output is not MISSING:
+        request['reference_output'] = reference_output
+    dump(directory / 'request.json', request)
+    result = {'catalog': catalog, 'case_id': case_id, 'started_utc': utc, 'source_version': source_version,
+              'source_hash': None, 'args': args, 'input_legal': None,
+              'allowed_to_execute': False, 'execution': None, 'execution_success': False,
+              'actual_output': None, 'reference_output': None, 'matches_reference': None,
+              'claim': claim, 'error_reason': None,
+              'verification': {'status': 'inconclusive', 'reason': 'not_executed'},
+              'program_overall_correct': None, 'unique_root_cause_confirmed': False,
+              'scope': 'one registered code version at one legal input; no learner or unique-cause inference',
+              'new_model_calls': 0, 'evidence_files': {'request': str(directory / 'request.json'),
+                                                    'result': str(directory / 'result.json')},
+              'implementation_sha256': digest(Path(__file__))}
+
+    def finish(error=None, detail=None):
+        if error:
+            result['error_reason'] = error
+            result['verification'] = {'status': 'inconclusive', 'reason': error}
+            result['evidence_files']['failure'] = str(directory / 'failure.json')
+            dump(directory / 'failure.json', {'error_reason': error, 'detail': detail,
+                 'started_utc': utc, 'execution': result['execution']})
+        result['ended_utc'] = datetime.now(timezone.utc).isoformat()
+        result['elapsed_ms'] = round((time.perf_counter() - started) * 1000, 3)
+        dump(directory / 'result.json', result)
+        return result
+
+    try:
+        registry = load_registry(catalog)
+    except (OSError, ValueError, KeyError) as exc:
+        return finish('registry_integrity_error', str(exc))
+    entry = registry.get(case_id)
+    if entry is None:
+        return finish('unknown_case')
+    result.update(task=entry['task'], statement=entry['statement'], input_contract=entry['input_contract'],
+                  source_origin=entry['review_origin'], source_origin_sha256=entry['review_origin_sha256'],
+                  guard_fixture=entry.get('guard_fixture', False))
+    version = entry['versions'].get(source_version)
+    if version is None:
+        return finish('unknown_source_version')
+    origin = entry.get('version_origins', {}).get(source_version)
+    if origin:
+        result.update(source_origin=origin, source_origin_sha256=digest(origin.split('#', 1)[0]))
+    selected_hash = source_hash(version['source'])
+    result['source_hash'] = selected_hash
+    if selected_hash != version['source_hash'] or (expected_source_hash is not None and expected_source_hash != selected_hash):
+        return finish('source_hash_mismatch')
+    if audit_source(version['source']) is not None:
+        return finish('source_audit_failed')
+    legal, reason = valid_args(entry['task'], args, entry['domain'])
+    result.update(input_legal=legal, input_check_reason=reason)
+    if not legal:
+        return finish('illegal_input', reason)
+    if (type(timeout) not in (int, float) or not math.isfinite(timeout) or not 0 < timeout <= 1.5
+            or type(output_limit) is not int or not 0 < output_limit <= 8192):
+        return finish('invalid_or_relaxed_limits')
+    if claim is not None:
+        if not isinstance(claim, dict):
+            return finish('invalid_claim')
+        if claim.get('source_hash', selected_hash) != selected_hash or claim.get('source_version', source_version) != source_version:
+            return finish('claim_version_mismatch')
+        if not same_value(claim.get('args', args), args):
+            return finish('claim_input_mismatch')
+        origin = claim.get('source')
+        if origin:
+            try:
+                if digest(origin['path']) != origin['sha256']:
+                    return finish('claim_origin_changed')
+            except (OSError, KeyError) as exc:
+                return finish('claim_origin_unavailable', str(exc))
+    expected = oracle(entry['task'], args)
+    result.update(reference_output=expected,
+                  reference_source={'path': str(Path(oracle.__code__.co_filename).resolve()),
+                                    'sha256': digest(oracle.__code__.co_filename), 'function': 'oracle',
+                                    'task': entry['task'], 'kind': 'independent_reviewed_reference'})
+    if reference_output is not MISSING and not same_value(reference_output, expected):
+        return finish('reference_conflict', 'Provided reference differs from the frozen independent oracle')
+    result['allowed_to_execute'] = True
+    dump(directory / 'selected_source.json', {'source': version['source'], 'source_hash': selected_hash,
+          'source_version': source_version, 'review_origin': result['source_origin']})
+    result['evidence_files']['selected_source'] = str(directory / 'selected_source.json')
+    try:
+        rows = execute(version['source'], [args], timeout=timeout, output_limit=output_limit)
+    except Exception:
+        return finish('executor_parent_exception', traceback.format_exc())
+    dump(directory / 'execution.json', rows)
+    result['evidence_files']['execution'] = str(directory / 'execution.json')
+    if len(rows) != 1 or not isinstance(rows[0], dict):
+        return finish('invalid_executor_packet')
+    row = rows[0]
+    result['execution'] = row
+    if row.get('code_hash') != selected_hash or not same_value(row.get('args'), args):
+        return finish('execution_identity_mismatch')
+    if row.get('status') != 'ok':
+        return finish('execution_' + str(row.get('status')), row.get('error'))
+    limits = row.get('limits', {})
+    if (limits.get('memory_enforced') is not True or limits.get('memory_bytes') != 134217728
+            or (os.name == 'nt' and limits.get('max_processes') != 1)):
+        return finish('resource_controls_unconfirmed')
+    actual = row['value']
+    result.update(execution_success=True, actual_output=actual, matches_reference=same_value(actual, expected),
+                  counterexample_to_overall_correctness=not same_value(actual, expected))
+    if source_version != 'original':
+        result['modification_evidence'] = 'this_input_passed_only' if result['matches_reference'] else 'this_input_failed'
+    kind = claim.get('kind') if claim else None
+    if kind == 'output_equals' and 'value' in claim:
+        result['verification'] = {'status': 'supported' if same_value(actual, claim['value']) else 'refuted',
+                                  'reason': 'real_return_value_at_bound_version_and_input'}
+    elif kind == 'all_inputs_correct' and not result['matches_reference']:
+        result['verification'] = {'status': 'refuted', 'reason': 'legal_counterexample_to_full_correctness'}
+    else:
+        result['verification'] = {'status': 'inconclusive', 'reason': (
+            'passing_input_cannot_prove_global_correctness' if kind == 'all_inputs_correct' else
+            'no_claim' if claim is None else 'not_an_executable_predicate_or_missing_value')}
+    return finish()

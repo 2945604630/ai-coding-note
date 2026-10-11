@@ -1,0 +1,42 @@
+{
+  "version": "F05_v1",
+  "formal_runs": 1,
+  "formal_cases": 3,
+  "model_calls": 0,
+  "states": [
+    "eligible_by_records",
+    "assisted_or_exposed",
+    "unknown"
+  ],
+  "policy": {
+    "normal_assessment_presentation_allowed": true,
+    "original_only_help_not_automatically_new_task_help": true,
+    "pre_first_hint_answer_AI_external_help_or_prior_view_disqualifies": true,
+    "missing_history_source_or_external_declaration_is_unknown": true,
+    "revisions_never_replace_first_code_score_or_frozen_qualification": true,
+    "later_disclosed_pre_first_help_can_only_downgrade_current_view": true
+  },
+  "metrics": [
+    "first_code_preserved",
+    "help_records_retained",
+    "qualification_correct",
+    "first_score_unchanged_after_revision",
+    "version_evidence_match",
+    "unreviewed_not_executed"
+  ],
+  "truth": "frozen explicit record rules + actual F03 execution, not AI rating or learning truth",
+  "limitations": [
+    "no proof of absent external help",
+    "local append-only API plus hash checks, not OS immutable storage",
+    "target and relevance labels require trustworthy input/human review",
+    "no real learner data"
+  ],
+  "plan": [
+    "freeze cases and policy",
+    "red test",
+    "append-only record and eligibility module",
+    "one formal run",
+    "necessary deterministic regression",
+    "short reports"
+  ]
+}

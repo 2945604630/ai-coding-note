@@ -1,0 +1,68 @@
+{
+  "SUM": {
+    "case_id": "SUM",
+    "historical_case_id": "C01",
+    "task": "inclusive_sum",
+    "statement": "实现solve(n)，返回从1到n（含n）的所有整数之和。n=0返回0。",
+    "input_contract": "一个整数n，0<=n<=8；布尔值不属于合法整数。",
+    "domain": "default",
+    "review_origin": "repo://experiments/feature_validation/F02_dynamic_questioning/cases/C01.json",
+    "review_origin_sha256": "9439ccfd7b5effa8bc94ed1e54b264c965387ffb036fb71e9256282c2538dec3",
+    "versions": {
+      "original": {
+        "source": "def solve(n):\n    s = 0\n    for i in range(1, n):\n        s += i\n    return s\n",
+        "source_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf"
+      },
+      "corrected": {
+        "source": "def solve(n):\n    s = 0\n    for i in range(1, n + 1):\n        s += i\n    return s\n",
+        "source_hash": "67fa3b2c08cc5f551bdee0849d1c4004ef3a5eb240d3e0b87f44b0359a94ceea"
+      },
+      "compensated_original": {
+        "source": "def solve(n):\n    s = 0\n    for i in range(1, n):\n        s += i\n    return s + n - 1\n",
+        "source_hash": "9774133aad81f658c9fdf48e5188f3ef1132513d491ac58072a7f612f4d7cda0"
+      },
+      "compensated_patch": {
+        "source": "def solve(n):\n    s = 0\n    for i in range(1, n + 1):\n        s += i\n    return s + n - 1\n",
+        "source_hash": "f522c3c3b9e5f9fe77f903fa0b844409f623792972a701863bab7fbb56117c42"
+      }
+    },
+    "approved_inputs": [
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        3
+      ]
+    ],
+    "version_origins": {
+      "original": "repo://experiments/feature_validation/F02_dynamic_questioning/cases/C01.json",
+      "corrected": "repo://experiments/data/b_cases_v3.json#b07",
+      "compensated_original": "repo://experiments/feature_validation/F02_dynamic_questioning/cases/C03.json",
+      "compensated_patch": "repo://experiments/feature_validation/F02_dynamic_questioning/cases/C03.json"
+    }
+  },
+  "G_EXCEPTION": {
+    "case_id": "G_EXCEPTION",
+    "task": "copy_items",
+    "domain": "default",
+    "statement": "既有执行器守卫夹具，非教学题",
+    "input_contract": "copy_items",
+    "guard_fixture": true,
+    "review_origin": "repo://experiments/tests/test_runner.py",
+    "review_origin_sha256": "96d22ccd7bd118f8350902a6d14465a9efc7742ebab07fcda81a048d33cf529f",
+    "versions": {
+      "original": {
+        "source": "def solve(xs):\n    return xs[0]\n",
+        "source_hash": "2bffc03a60c15109688f55de818e4de31eff3bedb22d76ad336b905350993a68"
+      }
+    },
+    "approved_inputs": [
+      [
+        []
+      ]
+    ]
+  }
+}

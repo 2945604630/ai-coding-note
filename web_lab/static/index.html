@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AIC · 教学交互实验台</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/static/style.css" />
+    <script src="/static/demo.js" defer></script>
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a href="/" class="brand"
+        ><span class="brand-mark">AIC</span
+        ><span>教学交互实验台 <small>V1</small></span></a
+      >
+      <nav aria-label="主导航">
+        <a href="/" data-nav="home">实验首页</a
+        ><a href="/history" data-nav="history">历史记录</a
+        ><a href="/stats" data-nav="stats">数据统计</a>
+      </nav>
+      <span class="local-label"><i></i>本地运行</span>
+    </header>
+    <main id="app"><p class="loading">正在读取本地实验数据…</p></main>
+    <div id="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>

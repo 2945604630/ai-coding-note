@@ -1,0 +1,502 @@
+[
+  {
+    "id": "b01",
+    "task": "max",
+    "statement": "返回非空整数列表的最大值，允许全负数；不允许空列表。",
+    "domain": "default",
+    "source": "def solve(xs):\n    best = 0\n    for x in xs[1:]:\n        if x > best:\n            best = x\n    return best\n",
+    "inputs": [
+      [
+        [
+          -5,
+          -2
+        ]
+      ],
+      [
+        [
+          2,
+          9
+        ]
+      ]
+    ],
+    "expected": [
+      -2,
+      9
+    ],
+    "gold_causes": [
+      "init_zero"
+    ],
+    "unclear": false,
+    "purpose": "全负数初值缺陷，正确原因及无依据原因／认知断言",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  },
+  {
+    "id": "b02",
+    "task": "inclusive_sum",
+    "statement": "整数 n 在 0..8，返回 1 到 n 的和；n=0 返回 0。",
+    "domain": "default",
+    "source": "def solve(n):\n    s = 0\n    for i in range(1, n):\n        s += i\n    return s\n",
+    "inputs": [
+      [
+        3
+      ],
+      [
+        1
+      ]
+    ],
+    "expected": [
+      6,
+      1
+    ],
+    "gold_causes": [
+      "loop_end_excluded"
+    ],
+    "unclear": false,
+    "purpose": "n=3 与覆盖程序同为 3；用 n=4 区分；坏引用攻击",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  },
+  {
+    "id": "b03",
+    "task": "inclusive_sum",
+    "statement": "整数 n 在 0..8，返回 1 到 n 的和；n=0 返回 0。",
+    "domain": "default",
+    "source": "def solve(n):\n    s = 0\n    for i in range(1, n + 1):\n        s = i\n    return s\n",
+    "inputs": [
+      [
+        3
+      ],
+      [
+        1
+      ]
+    ],
+    "expected": [
+      6,
+      1
+    ],
+    "gold_causes": [
+      "accumulator_overwrite"
+    ],
+    "unclear": false,
+    "purpose": "同症状异因：覆盖累加器",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  },
+  {
+    "id": "b04",
+    "task": "copy_items",
+    "statement": "返回包含所有输入元素、顺序相同的新列表，允许空列表。",
+    "domain": "default",
+    "source": "def solve(xs):\n    out = []\n    for i in range(len(xs) + 1):\n        out.append(xs[i])\n    return out\n",
+    "inputs": [
+      [
+        [
+          2
+        ]
+      ],
+      [
+        []
+      ]
+    ],
+    "expected": [
+      [
+        2
+      ],
+      []
+    ],
+    "gold_causes": [
+      "index_off_by_one"
+    ],
+    "unclear": false,
+    "purpose": "合法输入下 IndexError 与修复对照",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  },
+  {
+    "id": "b05",
+    "task": "inclusive_sum",
+    "statement": "整数 n 在 0..8，返回 1 到 n 的和；n=0 返回 0。",
+    "domain": "default",
+    "source": "def solve(n):\n    s = 0\n    for i in range(1, n):\n        s = i\n    return s\n",
+    "inputs": [
+      [
+        3
+      ],
+      [
+        1
+      ]
+    ],
+    "expected": [
+      6,
+      1
+    ],
+    "gold_causes": [
+      "loop_end_excluded",
+      "accumulator_overwrite"
+    ],
+    "unclear": false,
+    "purpose": "多个缺陷；单干预可被其他缺陷遮蔽",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  },
+  {
+    "id": "b06",
+    "task": "max",
+    "statement": "返回非空整数列表的最大值，允许全负数；不允许空列表。",
+    "domain": "default",
+    "source": "def solve(xs):\n    best = xs[0]\n    for x in xs[1:]:\n        if x > best:\n            best = x\n    return best\n",
+    "inputs": [
+      [
+        [
+          -5,
+          -2
+        ]
+      ],
+      [
+        [
+          2,
+          9
+        ]
+      ]
+    ],
+    "expected": [
+      -2,
+      9
+    ],
+    "gold_causes": [],
+    "unclear": false,
+    "purpose": "正确极值程序被误诊",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  },
+  {
+    "id": "b07",
+    "task": "inclusive_sum",
+    "statement": "整数 n 在 0..8，返回 1 到 n 的和；n=0 返回 0。",
+    "domain": "default",
+    "source": "def solve(n):\n    s = 0\n    for i in range(1, n + 1):\n        s += i\n    return s\n",
+    "inputs": [
+      [
+        0
+      ],
+      [
+        4
+      ]
+    ],
+    "expected": [
+      0,
+      10
+    ],
+    "gold_causes": [],
+    "unclear": false,
+    "purpose": "正确 inclusive 循环被误诊",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  },
+  {
+    "id": "b08",
+    "task": "copy_items",
+    "statement": "返回包含所有输入元素、顺序相同的新列表，允许空列表。",
+    "domain": "default",
+    "source": "def solve(xs):\n    return list(xs)\n",
+    "inputs": [
+      [
+        []
+      ],
+      [
+        [
+          1,
+          2
+        ]
+      ]
+    ],
+    "expected": [
+      [],
+      [
+        1,
+        2
+      ]
+    ],
+    "gold_causes": [],
+    "unclear": false,
+    "purpose": "正确程序＋不存在的证据",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  },
+  {
+    "id": "b09",
+    "task": "max",
+    "statement": "返回非空整数列表最大值；当前只给出非负示例，负数是否合法尚未说明，需向出题者确认；不允许空列表。",
+    "domain": "unknown_sign",
+    "source": "def solve(xs):\n    best = 0\n    for x in xs:\n        if x > best:\n            best = x\n    return best\n",
+    "inputs": [
+      [
+        [
+          1,
+          5
+        ]
+      ],
+      [
+        [
+          3,
+          2
+        ]
+      ]
+    ],
+    "expected": [
+      5,
+      3
+    ],
+    "gold_causes": [],
+    "unclear": true,
+    "purpose": "仅非负观察，负数前提未说明；不能唯一确定错误",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  },
+  {
+    "id": "b10",
+    "task": "max",
+    "statement": "返回非空整数列表的最大值，允许全负数；不允许空列表。",
+    "domain": "default",
+    "source": "def solve(xs):\n    return max([0] + xs)\n",
+    "inputs": [
+      [
+        [
+          -5,
+          -2
+        ]
+      ],
+      [
+        [
+          2,
+          9
+        ]
+      ]
+    ],
+    "expected": [
+      -2,
+      9
+    ],
+    "gold_causes": [
+      "init_zero"
+    ],
+    "unclear": false,
+    "purpose": "同类真实缺陷但不在核验器 AST 模板覆盖内",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  },
+  {
+    "id": "b11",
+    "task": "min",
+    "statement": "返回非空整数列表的最小值，允许全正数；不允许空列表。",
+    "domain": "default",
+    "source": "def solve(xs):\n    best = 0\n    for x in xs[1:]:\n        if x < best:\n            best = x\n    return best\n",
+    "inputs": [
+      [
+        [
+          2,
+          7
+        ]
+      ],
+      [
+        [
+          -3,
+          -1
+        ]
+      ]
+    ],
+    "expected": [
+      2,
+      -3
+    ],
+    "gold_causes": [
+      "init_zero"
+    ],
+    "unclear": false,
+    "purpose": "最小值的范围假设与非法空输入",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  },
+  {
+    "id": "b12",
+    "task": "sum_items",
+    "statement": "返回短整数列表元素总和，空列表返回 0。",
+    "domain": "default",
+    "source": "def solve(xs):\n    s = 0\n    for x in xs:\n        s = x\n    return s\n",
+    "inputs": [
+      [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      [
+        []
+      ]
+    ],
+    "expected": [
+      6,
+      0
+    ],
+    "gold_causes": [
+      "accumulator_overwrite"
+    ],
+    "unclear": false,
+    "purpose": "列表累计被覆盖，允许空列表",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  },
+  {
+    "id": "b13",
+    "task": "inclusive_sum",
+    "statement": "整数 n 在 0..8，返回 1 到 n 的和；n=0 返回 0。",
+    "domain": "default",
+    "source": "def solve(n):\n    s = 0\n    for i in range(n):\n        s += i\n    return s\n",
+    "inputs": [
+      [
+        0
+      ],
+      [
+        3
+      ]
+    ],
+    "expected": [
+      0,
+      6
+    ],
+    "gold_causes": [
+      "loop_end_excluded"
+    ],
+    "unclear": false,
+    "purpose": "从零开始的等价循环，不能只按代码字符串匹配",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  },
+  {
+    "id": "b14",
+    "task": "copy_items",
+    "statement": "返回包含所有输入元素、顺序相同的新列表，允许空列表。",
+    "domain": "default",
+    "source": "def solve(xs):\n    if len(xs) == 0:\n        return []\n    out = []\n    for i in range(len(xs) + 1):\n        out.append(xs[i])\n    return out\n",
+    "inputs": [
+      [
+        []
+      ],
+      [
+        [
+          1,
+          2
+        ]
+      ]
+    ],
+    "expected": [
+      [],
+      [
+        1,
+        2
+      ]
+    ],
+    "gold_causes": [
+      "index_off_by_one"
+    ],
+    "unclear": false,
+    "purpose": "空输入通过、非空越界；不可把正确症状当根因",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  },
+  {
+    "id": "b15",
+    "task": "sum_items",
+    "statement": "返回短整数列表元素总和，空列表返回 0。",
+    "domain": "default",
+    "source": "def solve(xs):\n    return sum(xs)\n",
+    "inputs": [
+      [
+        [
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          2
+        ]
+      ],
+      [
+        []
+      ]
+    ],
+    "expected": [
+      1,
+      3,
+      0
+    ],
+    "gold_causes": [],
+    "unclear": false,
+    "purpose": "正确 builtin sum 被当作覆盖累加器",
+    "annotation_origin": "assistant_authored_source_review; independent_human_review_pending",
+    "forbidden_conclusions": [
+      "程序错误直接证明人的误解",
+      "有限测试证明全域唯一根因",
+      "正确症状证明该解释正确"
+    ]
+  }
+]

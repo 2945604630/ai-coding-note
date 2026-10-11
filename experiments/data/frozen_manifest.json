@@ -1,0 +1,17 @@
+{
+  "protocol": "v1",
+  "utc": "2026-10-08T14:45:58.810236+00:00",
+  "counts": {
+    "b_programs": 15,
+    "b_claims": 24,
+    "a_traces": 12,
+    "c_packs": 14
+  },
+  "sha256": {
+    "PROTOCOL.md": "33323ae70bb44ade24f94859d13ae3ee684294fe4cadc08556b47b746700ccbb",
+    "data/a_traces.json": "5570446070bfa19c5580a0c495d33b2a71e032e32aeab895d1edd33ac75e8287",
+    "data/b_cases.json": "305cb60ee30c2f45dbabd05bc4f3b6ae791b6a9541c3776c5c4d76431bb880e2",
+    "data/b_claims.json": "3eb2ca8b1bc57fb35b94dba7e18359bad2c1f2c07da0c3ae96225b615a74c895",
+    "data/c_packs.json": "df0480c9daacbac2eef7c5cded1af9c96994a87cbbc5c5a23c7abc19a8de6f8a"
+  }
+}

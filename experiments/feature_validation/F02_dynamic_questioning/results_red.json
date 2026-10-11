@@ -1,0 +1,5 @@
+{
+  "command": "python -X utf8 -m unittest experiments.feature_validation.F02_dynamic_questioning.test_core",
+  "exit_code": 1,
+  "observed": "ImportError core before implementation; no model calls"
+}

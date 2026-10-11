@@ -1,0 +1,77 @@
+{
+  "case_id": "C03",
+  "task": "inclusive_sum",
+  "statement": "实现solve(n)，返回从1到n（含n）的所有整数之和。n=0返回0。",
+  "input_contract": "一个整数n，0<=n<=8；布尔值不属于合法整数。",
+  "source": "def solve(n):\n    s = 0\n    for i in range(1, n):\n        s += i\n    return s + n - 1\n",
+  "source_sha256": "9774133aad81f658c9fdf48e5188f3ef1132513d491ac58072a7f612f4d7cda0",
+  "versions": {
+    "local_patch": {
+      "source": "def solve(n):\n    s = 0\n    for i in range(1, n + 1):\n        s += i\n    return s + n - 1\n",
+      "source_sha256": "f522c3c3b9e5f9fe77f903fa0b844409f623792972a701863bab7fbb56117c42",
+      "evidence": []
+    }
+  },
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_version": "original",
+      "args": [
+        0
+      ],
+      "actual": -1,
+      "expected": 0,
+      "status": "ok"
+    },
+    {
+      "evidence_id": "E2",
+      "source_version": "original",
+      "args": [
+        1
+      ],
+      "actual": 0,
+      "expected": 1,
+      "status": "ok"
+    },
+    {
+      "evidence_id": "E3",
+      "source_version": "original",
+      "args": [
+        3
+      ],
+      "actual": 5,
+      "expected": 6,
+      "status": "ok"
+    },
+    {
+      "evidence_id": "E4",
+      "source_version": "local_patch",
+      "args": [
+        0
+      ],
+      "actual": -1,
+      "expected": 0,
+      "status": "ok"
+    },
+    {
+      "evidence_id": "E5",
+      "source_version": "local_patch",
+      "args": [
+        1
+      ],
+      "actual": 1,
+      "expected": 1,
+      "status": "ok"
+    },
+    {
+      "evidence_id": "E6",
+      "source_version": "local_patch",
+      "args": [
+        3
+      ],
+      "actual": 8,
+      "expected": 6,
+      "status": "ok"
+    }
+  ]
+}

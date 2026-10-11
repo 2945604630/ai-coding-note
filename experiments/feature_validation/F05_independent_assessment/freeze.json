@@ -1,0 +1,12 @@
+{
+  "utc": "2026-10-11T06:35:52.312471+00:00",
+  "sha256": {
+    "data/protocol.json": "1a3314c61f41c7ccb7b84660763a19f379bef9ef311a6df067bc478695a14257",
+    "data/question.json": "7739add4a29744173acb2baef5c375cb0a13ef44aeddfa0e1496a6aaaee46626",
+    "data/registry.json": "5f526386e908aad823dc7392866920197c86b228e4e2c98e6c7bc5d7c8055c4d",
+    "data/scenarios.json": "98c581bd758d8324c3bc38e9fd10d90c8a70ea355bf550b9f5bb9df8d92c3f4b",
+    "historical_manifest.json": "413e7a76d0ecccf3e275c3c082d9c013d42e57bbfaba46efc6497e8d872d9d55",
+    "history/F03_verifier_before_F05.py.txt": "c8b9e3da43a45bd183a0ac2bef49055ae0a13e7ba8ab510226f502d41803feb5",
+    "history/F04_core_before_F05.py.txt": "faf9e022cea928747a040f8f6e6c8dc391e6747fe32610757d3fd4b02f2f73cf"
+  }
+}

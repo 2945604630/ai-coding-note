@@ -1,0 +1,522 @@
+{
+  "b01": [
+    {
+      "id": "h01",
+      "cause": "init_zero",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "c0845b85ca025bae78a93896169ba4fed23ca53d542ae060360495d5fb6a7c49",
+      "probe_args": [
+        [
+          -4,
+          -1
+        ]
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 0
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：init_zero；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    },
+    {
+      "id": "h02",
+      "cause": "comparison_reversed",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "c0845b85ca025bae78a93896169ba4fed23ca53d542ae060360495d5fb6a7c49",
+      "probe_args": [
+        [
+          -4,
+          -1
+        ]
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 0
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：comparison_reversed；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    },
+    {
+      "id": "h03",
+      "cause": "does_not_understand_invariants",
+      "scope": "learner",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "c0845b85ca025bae78a93896169ba4fed23ca53d542ae060360495d5fb6a7c49",
+      "probe_args": [
+        [
+          -4,
+          -1
+        ]
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 0
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：does_not_understand_invariants；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ],
+  "b02": [
+    {
+      "id": "h04",
+      "cause": "loop_end_excluded",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+      "probe_args": [
+        4
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 6
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：loop_end_excluded；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    },
+    {
+      "id": "h05",
+      "cause": "accumulator_overwrite",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+      "probe_args": [
+        4
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 4
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：accumulator_overwrite；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    },
+    {
+      "id": "h06",
+      "cause": "loop_end_excluded",
+      "scope": "program",
+      "evidence_ids": [
+        "nonexistent"
+      ],
+      "code_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+      "probe_args": [
+        4
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 6
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：loop_end_excluded；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    },
+    {
+      "id": "h07",
+      "cause": "loop_end_excluded",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "old_version",
+      "probe_args": [
+        4
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 6
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：loop_end_excluded；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ],
+  "b03": [
+    {
+      "id": "h08",
+      "cause": "accumulator_overwrite",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "b6d1d14ae02d5130e37e3eadb08536dc4e5d75723ab22c5cd1768ecc1bb11248",
+      "probe_args": [
+        4
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 4
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：accumulator_overwrite；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    },
+    {
+      "id": "h09",
+      "cause": "loop_end_excluded",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "b6d1d14ae02d5130e37e3eadb08536dc4e5d75723ab22c5cd1768ecc1bb11248",
+      "probe_args": [
+        4
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 6
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：loop_end_excluded；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ],
+  "b04": [
+    {
+      "id": "h10",
+      "cause": "index_off_by_one",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "9cda8a0ea36454428e24913b428d2c3cc90e8ba220f3c090f418034e8cc4d13d",
+      "probe_args": [
+        [
+          -1,
+          4
+        ]
+      ],
+      "predicted": {
+        "status": "runtime_error",
+        "error_type": "IndexError"
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：index_off_by_one；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ],
+  "b05": [
+    {
+      "id": "h11",
+      "cause": "loop_end_excluded",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "ea9032e84c1766eeb3bd52a59d7bb4eccdd7e6efa76c801b1bccad13710915ac",
+      "probe_args": [
+        4
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 3
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：loop_end_excluded；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    },
+    {
+      "id": "h12",
+      "cause": "accumulator_overwrite",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "ea9032e84c1766eeb3bd52a59d7bb4eccdd7e6efa76c801b1bccad13710915ac",
+      "probe_args": [
+        4
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 3
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：accumulator_overwrite；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ],
+  "b06": [
+    {
+      "id": "h13",
+      "cause": "init_zero",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "741d094b9dff066ddcddfa359702f4708706d34bb941026f82209716f402becd",
+      "probe_args": [
+        [
+          -9,
+          -2
+        ]
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 0
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：init_zero；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ],
+  "b07": [
+    {
+      "id": "h14",
+      "cause": "loop_end_excluded",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "67fa3b2c08cc5f551bdee0849d1c4004ef3a5eb240d3e0b87f44b0359a94ceea",
+      "probe_args": [
+        4
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 6
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：loop_end_excluded；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ],
+  "b08": [
+    {
+      "id": "h15",
+      "cause": "index_off_by_one",
+      "scope": "program",
+      "evidence_ids": [
+        "made_up"
+      ],
+      "code_hash": "b1b866cc44eb02f63ddaf502ba0d5046a363375d70a3a858b592c887292e0156",
+      "probe_args": [
+        [
+          2
+        ]
+      ],
+      "predicted": {
+        "status": "runtime_error",
+        "error_type": "IndexError"
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：index_off_by_one；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ],
+  "b09": [
+    {
+      "id": "h16",
+      "cause": "init_zero",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "32475837c96a89cb81fb202382d5e431ef4e18391ef05dce8dc17703387105cb",
+      "probe_args": [
+        [
+          -2,
+          -1
+        ]
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 0
+      },
+      "next_action": "clarify_input_contract_before_probe",
+      "analysis_text": "固定故障注入候选：init_zero；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ],
+  "b10": [
+    {
+      "id": "h17",
+      "cause": "init_zero",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "6ba357ba297020e49def79ea7eb231f96e602aa6a2f5a10b30e1e41004b3cd4c",
+      "probe_args": [
+        [
+          -4,
+          -1
+        ]
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 0
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：init_zero；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ],
+  "b11": [
+    {
+      "id": "h18",
+      "cause": "init_zero",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "f4a12788f3b02e269ca95cc879dd8249179a810440bc7ff39e1fde2222695606",
+      "probe_args": [
+        [
+          4,
+          9
+        ]
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 0
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：init_zero；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    },
+    {
+      "id": "h19",
+      "cause": "init_zero",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "f4a12788f3b02e269ca95cc879dd8249179a810440bc7ff39e1fde2222695606",
+      "probe_args": [
+        []
+      ],
+      "predicted": {
+        "status": "runtime_error",
+        "error_type": "IndexError"
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：init_zero；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ],
+  "b12": [
+    {
+      "id": "h20",
+      "cause": "accumulator_overwrite",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "49ef8740c8485814a9649e66b1a7ac13e7419aaa23b31ad6d9ccdfae94d43e1c",
+      "probe_args": [
+        [
+          -2,
+          4
+        ]
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 4
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：accumulator_overwrite；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ],
+  "b13": [
+    {
+      "id": "h21",
+      "cause": "loop_end_excluded",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "71f74aabe90ca6e6f8b1154627b3b9a440cce546cfcc9a9ebca2b9c3e970b5f5",
+      "probe_args": [
+        4
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 6
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：loop_end_excluded；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ],
+  "b14": [
+    {
+      "id": "h22",
+      "cause": "index_off_by_one",
+      "scope": "program",
+      "evidence_ids": [
+        "e1"
+      ],
+      "code_hash": "e4d1e34f6407bba487505b49d509679e0236475656c6a6b69eec553a374cbb90",
+      "probe_args": [
+        [
+          3
+        ]
+      ],
+      "predicted": {
+        "status": "runtime_error",
+        "error_type": "IndexError"
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：index_off_by_one；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    },
+    {
+      "id": "h23",
+      "cause": "empty_input_unsupported",
+      "scope": "program",
+      "evidence_ids": [
+        "e1"
+      ],
+      "code_hash": "e4d1e34f6407bba487505b49d509679e0236475656c6a6b69eec553a374cbb90",
+      "probe_args": [
+        []
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": []
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：empty_input_unsupported；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ],
+  "b15": [
+    {
+      "id": "h24",
+      "cause": "accumulator_overwrite",
+      "scope": "program",
+      "evidence_ids": [
+        "e0"
+      ],
+      "code_hash": "fe34b83daf27909be975ea38ae6a8a22bdb74e86c13c1a1d5106953d750b3653",
+      "probe_args": [
+        [
+          1,
+          2
+        ]
+      ],
+      "predicted": {
+        "status": "ok",
+        "value": 2
+      },
+      "next_action": "execute_probe_then_local_intervention",
+      "analysis_text": "固定故障注入候选：accumulator_overwrite；必须单独检查程序原因，不能推定人的误解。",
+      "provenance": "authored_fixed_output_not_live_model"
+    }
+  ]
+}

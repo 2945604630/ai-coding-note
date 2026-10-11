@@ -1,0 +1,30 @@
+{
+  "input_version": "F01_v1",
+  "data_origin": "simulated_student_reply",
+  "case": {
+    "case_id": "01",
+    "task": "inclusive_sum",
+    "domain": "default",
+    "statement": "整数n在0..8，返回1到n的和，n=0返回0。",
+    "input_contract": "solve只接收一个整数n；n在0..8，bool不算整数。",
+    "source": "def solve(n):\n    s = 0\n    for i in range(1, n):\n        s += i\n    return s\n",
+    "source_sha256": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+    "evidence": [
+      {
+        "evidence_id": "E01",
+        "args": [
+          3
+        ],
+        "status": "ok",
+        "value": 3,
+        "expected": 6,
+        "passed": false,
+        "code_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf"
+      }
+    ],
+    "teaching_question": "当n=3时，你原本预期循环变量i依次取哪些值？",
+    "question_provenance": "previous real S1 question only; prior explanation and repair not supplied"
+  },
+  "previous_question": "当n=3时，你原本预期循环变量i依次取哪些值？",
+  "student_answer": "我没把右端点当作会进入循环的值；本来打算循环结束后再补最后那项，后来漏写了。先别把它当成我不懂range，我想自己试。"
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "scenario_id": "T01",
+    "coverage": {
+      "history_complete": true,
+      "prior_exposure_checked": true,
+      "source_record_complete": true,
+      "external_help_declaration": "none"
+    },
+    "first_version": "correct",
+    "expected_eligibility": "eligible_by_records",
+    "expected_first_passed": 2,
+    "events": [
+      {
+        "kind": "ai_help",
+        "target": "original",
+        "content": "原题的循环边界教学记录，非本题提示。"
+      }
+    ]
+  },
+  {
+    "scenario_id": "T02",
+    "coverage": {
+      "history_complete": true,
+      "prior_exposure_checked": true,
+      "source_record_complete": true,
+      "external_help_declaration": "none"
+    },
+    "first_version": "correct",
+    "expected_eligibility": "assisted_or_exposed",
+    "expected_first_passed": 2,
+    "events": [
+      {
+        "kind": "question_seen",
+        "target": "assessment",
+        "content": "提交前曾提前见过本题。"
+      },
+      {
+        "kind": "hint",
+        "target": "assessment",
+        "content": "先核对返回值是否来自输入列表。"
+      },
+      {
+        "kind": "full_answer",
+        "target": "assessment",
+        "content": "def solve(xs):\n    best = 0\n    for x in xs:\n        if x > best:\n            best = x\n    if max(xs) < 0:\n        return max(xs)\n    return best\n"
+      }
+    ]
+  },
+  {
+    "scenario_id": "T03",
+    "coverage": {
+      "history_complete": true,
+      "prior_exposure_checked": true,
+      "source_record_complete": true,
+      "external_help_declaration": "unknown"
+    },
+    "first_version": "buggy",
+    "revision_version": "correct",
+    "expected_eligibility": "unknown",
+    "expected_first_passed": 1,
+    "expected_revision_passed": 2,
+    "events": []
+  }
+]

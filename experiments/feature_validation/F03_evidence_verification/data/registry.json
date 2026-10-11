@@ -1,0 +1,102 @@
+{
+  "A": {
+    "case_id": "A",
+    "historical_case_id": "C01",
+    "task": "inclusive_sum",
+    "statement": "实现solve(n)，返回从1到n（含n）的所有整数之和。n=0返回0。",
+    "input_contract": "一个整数n，0<=n<=8；布尔值不属于合法整数。",
+    "domain": "default",
+    "review_origin": "repo://experiments/feature_validation/F02_dynamic_questioning/cases/C01.json",
+    "review_origin_sha256": "9439ccfd7b5effa8bc94ed1e54b264c965387ffb036fb71e9256282c2538dec3",
+    "versions": {
+      "original": {
+        "source": "def solve(n):\n    s = 0\n    for i in range(1, n):\n        s += i\n    return s\n",
+        "source_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf"
+      }
+    }
+  },
+  "B": {
+    "case_id": "B",
+    "historical_case_id": "C03",
+    "task": "inclusive_sum",
+    "statement": "实现solve(n)，返回从1到n（含n）的所有整数之和。n=0返回0。",
+    "input_contract": "一个整数n，0<=n<=8；布尔值不属于合法整数。",
+    "domain": "default",
+    "review_origin": "repo://experiments/feature_validation/F02_dynamic_questioning/cases/C03.json",
+    "review_origin_sha256": "ef5d2356032cebc87aaaa6aaa929ddd40eed2b050f3136565130282f0a21989e",
+    "versions": {
+      "original": {
+        "source": "def solve(n):\n    s = 0\n    for i in range(1, n):\n        s += i\n    return s + n - 1\n",
+        "source_hash": "9774133aad81f658c9fdf48e5188f3ef1132513d491ac58072a7f612f4d7cda0"
+      },
+      "local_patch": {
+        "source": "def solve(n):\n    s = 0\n    for i in range(1, n + 1):\n        s += i\n    return s + n - 1\n",
+        "source_hash": "f522c3c3b9e5f9fe77f903fa0b844409f623792972a701863bab7fbb56117c42"
+      }
+    }
+  },
+  "C": {
+    "case_id": "C",
+    "historical_case_id": "05",
+    "task": "max",
+    "statement": "返回非空整数列表最大值，允许全负数；长度1..8，元素在-20..20。",
+    "input_contract": "solve只接收一个整数列表；长度1..8，元素在-20..20，bool不算整数，允许全部为负。",
+    "domain": "default",
+    "review_origin": "repo://experiments/round5_ui_model/cases/05.json",
+    "review_origin_sha256": "9b8023dcd5345b68ea1fdda06c3b647fa917c4032f97e5e0e59e283ec33695d1",
+    "versions": {
+      "original": {
+        "source": "def solve(xs):\n    best = 0\n    for x in xs:\n        if x > best:\n            best = x\n    if max(xs) < 0:\n        return max(xs)\n    return best\n",
+        "source_hash": "29b83db76b659c30f96f49c8ad851f6de7051bf7412f373abfbb8ccd3e66b096"
+      }
+    }
+  },
+  "G_TIMEOUT": {
+    "case_id": "G_TIMEOUT",
+    "task": "inclusive_sum",
+    "domain": "default",
+    "statement": "既有执行器守卫夹具，非教学题",
+    "input_contract": "inclusive_sum",
+    "guard_fixture": true,
+    "review_origin": "repo://experiments/tests/test_runner.py",
+    "review_origin_sha256": "96d22ccd7bd118f8350902a6d14465a9efc7742ebab07fcda81a048d33cf529f",
+    "versions": {
+      "original": {
+        "source": "def solve(n):\n    while True:\n        n += 1\n",
+        "source_hash": "305da72658b8c3d85f44a2f92f6e21ad8c3c327515f55d78fa2856734605f42c"
+      }
+    }
+  },
+  "G_EXCEPTION": {
+    "case_id": "G_EXCEPTION",
+    "task": "copy_items",
+    "domain": "default",
+    "statement": "既有执行器守卫夹具，非教学题",
+    "input_contract": "copy_items",
+    "guard_fixture": true,
+    "review_origin": "repo://experiments/tests/test_runner.py",
+    "review_origin_sha256": "96d22ccd7bd118f8350902a6d14465a9efc7742ebab07fcda81a048d33cf529f",
+    "versions": {
+      "original": {
+        "source": "def solve(xs):\n    return xs[0]\n",
+        "source_hash": "2bffc03a60c15109688f55de818e4de31eff3bedb22d76ad336b905350993a68"
+      }
+    }
+  },
+  "G_OUTPUT": {
+    "case_id": "G_OUTPUT",
+    "task": "inclusive_sum",
+    "domain": "default",
+    "statement": "既有执行器守卫夹具，非教学题",
+    "input_contract": "inclusive_sum",
+    "guard_fixture": true,
+    "review_origin": "repo://experiments/tests/test_runner.py",
+    "review_origin_sha256": "96d22ccd7bd118f8350902a6d14465a9efc7742ebab07fcda81a048d33cf529f",
+    "versions": {
+      "original": {
+        "source": "def solve(n):\n    return [0] * 1024\n",
+        "source_hash": "640b89e1431d0396cdbbd7e0ec9b10c8b42ea65f9cb7f1a6a2d25b99b2d2c768"
+      }
+    }
+  }
+}

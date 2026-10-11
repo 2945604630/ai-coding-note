@@ -1,0 +1,19 @@
+{
+  "scenario_id": "R01",
+  "case_id": "01",
+  "private_marker": "F01_PRIVATE_R01",
+  "expected_interpretation": "clear_understanding",
+  "allowed_actions": [
+    "request_self_modification",
+    "suspend_for_choice"
+  ],
+  "supported_facts": "明确列出实际循环并区分题意；请求自己改，不再列同一遍。",
+  "not_supported": [
+    "long_term_mastery",
+    "persistent_misconception",
+    "independent_repair_success"
+  ],
+  "repeated_question_forbidden": true,
+  "reference_origin": "author_review_of_simulated_reply; no independent human",
+  "needs_human_review": true
+}

@@ -1,0 +1,531 @@
+{
+  "case_id": "SUM",
+  "started_utc": "2026-10-11T05:13:24.518429+00:00",
+  "data_origin": "frozen_simulated_modification_not_real_student",
+  "status": "specified_tests_passed",
+  "error_reason": null,
+  "tests": [
+    {
+      "test_id": "T1",
+      "args": [
+        0
+      ],
+      "before": {
+        "catalog": "F04",
+        "case_id": "SUM",
+        "started_utc": "2026-10-11T05:13:24.522430+00:00",
+        "source_version": "original",
+        "source_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+        "args": [
+          0
+        ],
+        "input_legal": true,
+        "allowed_to_execute": true,
+        "execution": {
+          "code_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+          "runtime": "3.12.10",
+          "args": [
+            0
+          ],
+          "status": "ok",
+          "value": 0,
+          "function_elapsed_ms": 0.7144,
+          "limits": {
+            "timeout_s": 1.5,
+            "output_bytes": 8192,
+            "memory_bytes": 134217728,
+            "memory_enforced": true,
+            "max_processes": 1
+          },
+          "batch_elapsed_ms": 46.757
+        },
+        "execution_success": true,
+        "actual_output": 0,
+        "reference_output": 0,
+        "matches_reference": true,
+        "claim": null,
+        "error_reason": null,
+        "verification": {
+          "status": "inconclusive",
+          "reason": "no_claim"
+        },
+        "program_overall_correct": null,
+        "unique_root_cause_confirmed": false,
+        "scope": "one registered code version at one legal input; no learner or unique-cause inference",
+        "new_model_calls": 0,
+        "evidence_files": {
+          "request": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T1_before/request.json",
+          "result": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T1_before/result.json",
+          "selected_source": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T1_before/selected_source.json",
+          "execution": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T1_before/execution.json"
+        },
+        "implementation_sha256": "c8b9e3da43a45bd183a0ac2bef49055ae0a13e7ba8ab510226f502d41803feb5",
+        "task": "inclusive_sum",
+        "statement": "实现solve(n)，返回从1到n（含n）的所有整数之和。n=0返回0。",
+        "input_contract": "一个整数n，0<=n<=8；布尔值不属于合法整数。",
+        "source_origin": "repo://experiments/feature_validation/F02_dynamic_questioning/cases/C01.json",
+        "source_origin_sha256": "9439ccfd7b5effa8bc94ed1e54b264c965387ffb036fb71e9256282c2538dec3",
+        "guard_fixture": false,
+        "input_check_reason": "n must be an integer in [0,8]",
+        "reference_source": {
+          "path": "repo://experiments/common.py",
+          "sha256": "6f006934ee89e196afe0884b11e9d8e366b1f8a14ed0fd345ca44af5e32b0462",
+          "function": "oracle",
+          "task": "inclusive_sum",
+          "kind": "independent_reviewed_reference"
+        },
+        "counterexample_to_overall_correctness": false,
+        "ended_utc": "2026-10-11T05:13:24.579409+00:00",
+        "elapsed_ms": 55.973
+      },
+      "after": {
+        "catalog": "F04",
+        "case_id": "SUM",
+        "started_utc": "2026-10-11T05:13:24.579409+00:00",
+        "source_version": "corrected",
+        "source_hash": "67fa3b2c08cc5f551bdee0849d1c4004ef3a5eb240d3e0b87f44b0359a94ceea",
+        "args": [
+          0
+        ],
+        "input_legal": true,
+        "allowed_to_execute": true,
+        "execution": {
+          "code_hash": "67fa3b2c08cc5f551bdee0849d1c4004ef3a5eb240d3e0b87f44b0359a94ceea",
+          "runtime": "3.12.10",
+          "args": [
+            0
+          ],
+          "status": "ok",
+          "value": 0,
+          "function_elapsed_ms": 0.7096,
+          "limits": {
+            "timeout_s": 1.5,
+            "output_bytes": 8192,
+            "memory_bytes": 134217728,
+            "memory_enforced": true,
+            "max_processes": 1
+          },
+          "batch_elapsed_ms": 42.98
+        },
+        "execution_success": true,
+        "actual_output": 0,
+        "reference_output": 0,
+        "matches_reference": true,
+        "claim": null,
+        "error_reason": null,
+        "verification": {
+          "status": "inconclusive",
+          "reason": "no_claim"
+        },
+        "program_overall_correct": null,
+        "unique_root_cause_confirmed": false,
+        "scope": "one registered code version at one legal input; no learner or unique-cause inference",
+        "new_model_calls": 0,
+        "evidence_files": {
+          "request": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T1_after/request.json",
+          "result": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T1_after/result.json",
+          "selected_source": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T1_after/selected_source.json",
+          "execution": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T1_after/execution.json"
+        },
+        "implementation_sha256": "c8b9e3da43a45bd183a0ac2bef49055ae0a13e7ba8ab510226f502d41803feb5",
+        "task": "inclusive_sum",
+        "statement": "实现solve(n)，返回从1到n（含n）的所有整数之和。n=0返回0。",
+        "input_contract": "一个整数n，0<=n<=8；布尔值不属于合法整数。",
+        "source_origin": "repo://experiments/data/b_cases_v3.json#b07",
+        "source_origin_sha256": "a23222bfaf6ec478486a9f5cabe5e1f555c98b6a107a01dc98429988ac1e59c0",
+        "guard_fixture": false,
+        "input_check_reason": "n must be an integer in [0,8]",
+        "reference_source": {
+          "path": "repo://experiments/common.py",
+          "sha256": "6f006934ee89e196afe0884b11e9d8e366b1f8a14ed0fd345ca44af5e32b0462",
+          "function": "oracle",
+          "task": "inclusive_sum",
+          "kind": "independent_reviewed_reference"
+        },
+        "counterexample_to_overall_correctness": false,
+        "modification_evidence": "this_input_passed_only",
+        "ended_utc": "2026-10-11T05:13:24.631207+00:00",
+        "elapsed_ms": 51.356
+      },
+      "classification": "maintained_pass",
+      "output_changed": false
+    },
+    {
+      "test_id": "T2",
+      "args": [
+        1
+      ],
+      "before": {
+        "catalog": "F04",
+        "case_id": "SUM",
+        "started_utc": "2026-10-11T05:13:24.632206+00:00",
+        "source_version": "original",
+        "source_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+        "args": [
+          1
+        ],
+        "input_legal": true,
+        "allowed_to_execute": true,
+        "execution": {
+          "code_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+          "runtime": "3.12.10",
+          "args": [
+            1
+          ],
+          "status": "ok",
+          "value": 0,
+          "function_elapsed_ms": 0.6875,
+          "limits": {
+            "timeout_s": 1.5,
+            "output_bytes": 8192,
+            "memory_bytes": 134217728,
+            "memory_enforced": true,
+            "max_processes": 1
+          },
+          "batch_elapsed_ms": 49.992
+        },
+        "execution_success": true,
+        "actual_output": 0,
+        "reference_output": 1,
+        "matches_reference": false,
+        "claim": null,
+        "error_reason": null,
+        "verification": {
+          "status": "inconclusive",
+          "reason": "no_claim"
+        },
+        "program_overall_correct": null,
+        "unique_root_cause_confirmed": false,
+        "scope": "one registered code version at one legal input; no learner or unique-cause inference",
+        "new_model_calls": 0,
+        "evidence_files": {
+          "request": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T2_before/request.json",
+          "result": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T2_before/result.json",
+          "selected_source": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T2_before/selected_source.json",
+          "execution": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T2_before/execution.json"
+        },
+        "implementation_sha256": "c8b9e3da43a45bd183a0ac2bef49055ae0a13e7ba8ab510226f502d41803feb5",
+        "task": "inclusive_sum",
+        "statement": "实现solve(n)，返回从1到n（含n）的所有整数之和。n=0返回0。",
+        "input_contract": "一个整数n，0<=n<=8；布尔值不属于合法整数。",
+        "source_origin": "repo://experiments/feature_validation/F02_dynamic_questioning/cases/C01.json",
+        "source_origin_sha256": "9439ccfd7b5effa8bc94ed1e54b264c965387ffb036fb71e9256282c2538dec3",
+        "guard_fixture": false,
+        "input_check_reason": "n must be an integer in [0,8]",
+        "reference_source": {
+          "path": "repo://experiments/common.py",
+          "sha256": "6f006934ee89e196afe0884b11e9d8e366b1f8a14ed0fd345ca44af5e32b0462",
+          "function": "oracle",
+          "task": "inclusive_sum",
+          "kind": "independent_reviewed_reference"
+        },
+        "counterexample_to_overall_correctness": true,
+        "ended_utc": "2026-10-11T05:13:24.693549+00:00",
+        "elapsed_ms": 60.974
+      },
+      "after": {
+        "catalog": "F04",
+        "case_id": "SUM",
+        "started_utc": "2026-10-11T05:13:24.694556+00:00",
+        "source_version": "corrected",
+        "source_hash": "67fa3b2c08cc5f551bdee0849d1c4004ef3a5eb240d3e0b87f44b0359a94ceea",
+        "args": [
+          1
+        ],
+        "input_legal": true,
+        "allowed_to_execute": true,
+        "execution": {
+          "code_hash": "67fa3b2c08cc5f551bdee0849d1c4004ef3a5eb240d3e0b87f44b0359a94ceea",
+          "runtime": "3.12.10",
+          "args": [
+            1
+          ],
+          "status": "ok",
+          "value": 1,
+          "function_elapsed_ms": 0.6747,
+          "limits": {
+            "timeout_s": 1.5,
+            "output_bytes": 8192,
+            "memory_bytes": 134217728,
+            "memory_enforced": true,
+            "max_processes": 1
+          },
+          "batch_elapsed_ms": 43.991
+        },
+        "execution_success": true,
+        "actual_output": 1,
+        "reference_output": 1,
+        "matches_reference": true,
+        "claim": null,
+        "error_reason": null,
+        "verification": {
+          "status": "inconclusive",
+          "reason": "no_claim"
+        },
+        "program_overall_correct": null,
+        "unique_root_cause_confirmed": false,
+        "scope": "one registered code version at one legal input; no learner or unique-cause inference",
+        "new_model_calls": 0,
+        "evidence_files": {
+          "request": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T2_after/request.json",
+          "result": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T2_after/result.json",
+          "selected_source": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T2_after/selected_source.json",
+          "execution": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T2_after/execution.json"
+        },
+        "implementation_sha256": "c8b9e3da43a45bd183a0ac2bef49055ae0a13e7ba8ab510226f502d41803feb5",
+        "task": "inclusive_sum",
+        "statement": "实现solve(n)，返回从1到n（含n）的所有整数之和。n=0返回0。",
+        "input_contract": "一个整数n，0<=n<=8；布尔值不属于合法整数。",
+        "source_origin": "repo://experiments/data/b_cases_v3.json#b07",
+        "source_origin_sha256": "a23222bfaf6ec478486a9f5cabe5e1f555c98b6a107a01dc98429988ac1e59c0",
+        "guard_fixture": false,
+        "input_check_reason": "n must be an integer in [0,8]",
+        "reference_source": {
+          "path": "repo://experiments/common.py",
+          "sha256": "6f006934ee89e196afe0884b11e9d8e366b1f8a14ed0fd345ca44af5e32b0462",
+          "function": "oracle",
+          "task": "inclusive_sum",
+          "kind": "independent_reviewed_reference"
+        },
+        "counterexample_to_overall_correctness": false,
+        "modification_evidence": "this_input_passed_only",
+        "ended_utc": "2026-10-11T05:13:24.747234+00:00",
+        "elapsed_ms": 52.658
+      },
+      "classification": "improved",
+      "output_changed": true
+    },
+    {
+      "test_id": "T3",
+      "args": [
+        3
+      ],
+      "before": {
+        "catalog": "F04",
+        "case_id": "SUM",
+        "started_utc": "2026-10-11T05:13:24.748234+00:00",
+        "source_version": "original",
+        "source_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+        "args": [
+          3
+        ],
+        "input_legal": true,
+        "allowed_to_execute": true,
+        "execution": {
+          "code_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+          "runtime": "3.12.10",
+          "args": [
+            3
+          ],
+          "status": "ok",
+          "value": 3,
+          "function_elapsed_ms": 0.6623,
+          "limits": {
+            "timeout_s": 1.5,
+            "output_bytes": 8192,
+            "memory_bytes": 134217728,
+            "memory_enforced": true,
+            "max_processes": 1
+          },
+          "batch_elapsed_ms": 42.852
+        },
+        "execution_success": true,
+        "actual_output": 3,
+        "reference_output": 6,
+        "matches_reference": false,
+        "claim": null,
+        "error_reason": null,
+        "verification": {
+          "status": "inconclusive",
+          "reason": "no_claim"
+        },
+        "program_overall_correct": null,
+        "unique_root_cause_confirmed": false,
+        "scope": "one registered code version at one legal input; no learner or unique-cause inference",
+        "new_model_calls": 0,
+        "evidence_files": {
+          "request": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T3_before/request.json",
+          "result": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T3_before/result.json",
+          "selected_source": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T3_before/selected_source.json",
+          "execution": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T3_before/execution.json"
+        },
+        "implementation_sha256": "c8b9e3da43a45bd183a0ac2bef49055ae0a13e7ba8ab510226f502d41803feb5",
+        "task": "inclusive_sum",
+        "statement": "实现solve(n)，返回从1到n（含n）的所有整数之和。n=0返回0。",
+        "input_contract": "一个整数n，0<=n<=8；布尔值不属于合法整数。",
+        "source_origin": "repo://experiments/feature_validation/F02_dynamic_questioning/cases/C01.json",
+        "source_origin_sha256": "9439ccfd7b5effa8bc94ed1e54b264c965387ffb036fb71e9256282c2538dec3",
+        "guard_fixture": false,
+        "input_check_reason": "n must be an integer in [0,8]",
+        "reference_source": {
+          "path": "repo://experiments/common.py",
+          "sha256": "6f006934ee89e196afe0884b11e9d8e366b1f8a14ed0fd345ca44af5e32b0462",
+          "function": "oracle",
+          "task": "inclusive_sum",
+          "kind": "independent_reviewed_reference"
+        },
+        "counterexample_to_overall_correctness": true,
+        "ended_utc": "2026-10-11T05:13:24.799992+00:00",
+        "elapsed_ms": 51.796
+      },
+      "after": {
+        "catalog": "F04",
+        "case_id": "SUM",
+        "started_utc": "2026-10-11T05:13:24.800991+00:00",
+        "source_version": "corrected",
+        "source_hash": "67fa3b2c08cc5f551bdee0849d1c4004ef3a5eb240d3e0b87f44b0359a94ceea",
+        "args": [
+          3
+        ],
+        "input_legal": true,
+        "allowed_to_execute": true,
+        "execution": {
+          "code_hash": "67fa3b2c08cc5f551bdee0849d1c4004ef3a5eb240d3e0b87f44b0359a94ceea",
+          "runtime": "3.12.10",
+          "args": [
+            3
+          ],
+          "status": "ok",
+          "value": 6,
+          "function_elapsed_ms": 0.7539,
+          "limits": {
+            "timeout_s": 1.5,
+            "output_bytes": 8192,
+            "memory_bytes": 134217728,
+            "memory_enforced": true,
+            "max_processes": 1
+          },
+          "batch_elapsed_ms": 44.534
+        },
+        "execution_success": true,
+        "actual_output": 6,
+        "reference_output": 6,
+        "matches_reference": true,
+        "claim": null,
+        "error_reason": null,
+        "verification": {
+          "status": "inconclusive",
+          "reason": "no_claim"
+        },
+        "program_overall_correct": null,
+        "unique_root_cause_confirmed": false,
+        "scope": "one registered code version at one legal input; no learner or unique-cause inference",
+        "new_model_calls": 0,
+        "evidence_files": {
+          "request": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T3_after/request.json",
+          "result": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T3_after/result.json",
+          "selected_source": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T3_after/selected_source.json",
+          "execution": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/T3_after/execution.json"
+        },
+        "implementation_sha256": "c8b9e3da43a45bd183a0ac2bef49055ae0a13e7ba8ab510226f502d41803feb5",
+        "task": "inclusive_sum",
+        "statement": "实现solve(n)，返回从1到n（含n）的所有整数之和。n=0返回0。",
+        "input_contract": "一个整数n，0<=n<=8；布尔值不属于合法整数。",
+        "source_origin": "repo://experiments/data/b_cases_v3.json#b07",
+        "source_origin_sha256": "a23222bfaf6ec478486a9f5cabe5e1f555c98b6a107a01dc98429988ac1e59c0",
+        "guard_fixture": false,
+        "input_check_reason": "n must be an integer in [0,8]",
+        "reference_source": {
+          "path": "repo://experiments/common.py",
+          "sha256": "6f006934ee89e196afe0884b11e9d8e366b1f8a14ed0fd345ca44af5e32b0462",
+          "function": "oracle",
+          "task": "inclusive_sum",
+          "kind": "independent_reviewed_reference"
+        },
+        "counterexample_to_overall_correctness": false,
+        "modification_evidence": "this_input_passed_only",
+        "ended_utc": "2026-10-11T05:13:24.852945+00:00",
+        "elapsed_ms": 52.579
+      },
+      "classification": "improved",
+      "output_changed": true
+    }
+  ],
+  "before": {
+    "version": "original",
+    "source_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+    "source_file": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/before.py"
+  },
+  "after": {
+    "version": "corrected",
+    "source_hash": "67fa3b2c08cc5f551bdee0849d1c4004ef3a5eb240d3e0b87f44b0359a94ceea",
+    "parent_source_hash": "c80ec901b71b5658cd51c90c51906b7c987d7a5bd1453fa7d8a6b06fe37b72bf",
+    "source_file": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/after.py"
+  },
+  "modification": {
+    "changed": true,
+    "locations": [
+      {
+        "operation": "replace",
+        "before_start_line": 3,
+        "before_end_line_exclusive": 4,
+        "after_start_line": 3,
+        "after_end_line_exclusive": 4
+      }
+    ],
+    "unified_diff": "--- before\n+++ after\n@@ -1,5 +1,5 @@\n def solve(n):\n     s = 0\n-    for i in range(1, n):\n+    for i in range(1, n + 1):\n         s += i\n     return s\n"
+  },
+  "summary": {
+    "maintained_pass": 1,
+    "improved": 2,
+    "regression": 0,
+    "remaining_failure": 0,
+    "unable_to_compare": 0,
+    "test_count": 3,
+    "after_passed": 3
+  },
+  "overall_repair_confirmed": null,
+  "student_mastery_confirmed": null,
+  "needs_human_review": true,
+  "new_model_calls": 0,
+  "context": {
+    "data_origin": "author_frozen_simulated_modification_not_real_student",
+    "previous_question": "请自行修改并保留理由；核验原失败输入，也保留原本通过的输入。",
+    "student_answer": "我提交了一个修改版本，请核对前后结果。"
+  },
+  "evidence_files": {
+    "request": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/request.json",
+    "result": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/result.json",
+    "diff": "repo://experiments/feature_validation/F04_self_modification/results/formal_v1/M01/diff.json"
+  },
+  "implementation_sha256": "faf9e022cea928747a040f8f6e6c8dc391e6747fe32610757d3fd4b02f2f73cf",
+  "input_contract": "一个整数n，0<=n<=8；布尔值不属于合法整数。",
+  "feedback": {
+    "interpretation": "仅记录提交的修改与指定输入上的执行变化，不推断学生理解。",
+    "answer_quotes": [
+      "我提交了一个修改版本，请核对前后结果。"
+    ],
+    "evidence_sufficiency": "partial",
+    "next_action": "suspend_for_choice",
+    "student_message": "输入[0]：旧版返回0，新版返回0，参考为0，判定maintained_pass。 输入[1]：旧版返回0，新版返回1，参考为1，判定improved。 输入[3]：旧版返回3，新版返回6，参考为6，判定improved。 指定输入均已通过。可以保存当前版本或选择后续核验；本轮不再重复此前追问。 这些结果不确认整体修复、唯一根因或知识掌握。",
+    "decision_basis": "依据本次同输入、不同源码哈希的 F03 返回值与参考比较；未使用模型预测。",
+    "uncertainties": [
+      "有限测试之外的行为、修改理由与学生理解未确认；教学措辞需人工复核。"
+    ],
+    "evidence_refs": [
+      "SOURCE",
+      "CONTRACT",
+      "T1_before",
+      "T1_after",
+      "T2_before",
+      "T2_after",
+      "T3_before",
+      "T3_after"
+    ],
+    "execution_requests": [],
+    "question_intent": "呈现修改效果并决定等待自主修改或后续选择，避免重复追问。",
+    "stop_questioning": true,
+    "stop_reason": "await_new_evidence"
+  },
+  "feedback_validation": {
+    "structural_valid": true,
+    "display_safe": true,
+    "issues": [],
+    "requests": [],
+    "needs_human_review": true,
+    "semantic_truth_certified": false
+  },
+  "termination": "await_new_evidence",
+  "ended_utc": "2026-10-11T05:13:24.854946+00:00",
+  "elapsed_ms": 338.265
+}

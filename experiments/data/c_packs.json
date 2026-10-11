@@ -1,0 +1,890 @@
+[
+  {
+    "id": "c01",
+    "task": "max",
+    "statement": "返回非空整数列表的最大值，允许全负数；不允许空列表。",
+    "reference": "def solve(xs):\n    best = xs[0]\n    for x in xs[1:]:\n        if x > best:\n            best = x\n    return best\n",
+    "starter": "def solve(xs):\n    return -1\n",
+    "tests": [
+      {
+        "args": [
+          [
+            -5,
+            -2
+          ]
+        ],
+        "expected": -2
+      },
+      {
+        "args": [
+          [
+            2,
+            9
+          ]
+        ],
+        "expected": 9
+      },
+      {
+        "args": [
+          [
+            -1
+          ]
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            0
+          ]
+        ],
+        "expected": 0
+      }
+    ],
+    "witness_inputs": [
+      [
+        [
+          -5,
+          -2
+        ]
+      ],
+      [
+        [
+          2,
+          9
+        ]
+      ],
+      [
+        [
+          -1
+        ]
+      ],
+      [
+        [
+          0
+        ]
+      ]
+    ],
+    "target_source": "def solve(xs):\n    best = 0\n    for x in xs[1:]:\n        if x > best:\n            best = x\n    return best\n",
+    "requested_concept": "initialization",
+    "actual_concept": "initialization",
+    "rubric_review": {
+      "status": "approved_fixture",
+      "concept_match": true,
+      "origin": "author_supplied_review_fixture_not_teacher_study"
+    },
+    "gold_quality": "good",
+    "provenance": "authored_injected_pack_not_ai_generated"
+  },
+  {
+    "id": "c02",
+    "task": "inclusive_sum",
+    "statement": "整数 n 在 0..8，返回 1 到 n 的和；n=0 返回 0。",
+    "reference": "def solve(n):\n    s = 0\n    for i in range(1, n + 1):\n        s += i\n    return s\n",
+    "starter": "def solve(xs):\n    return -1\n",
+    "tests": [
+      {
+        "args": [
+          0
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          3
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          4
+        ],
+        "expected": 10
+      }
+    ],
+    "witness_inputs": [
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        3
+      ],
+      [
+        4
+      ]
+    ],
+    "target_source": "def solve(n):\n    s = 0\n    for i in range(1, n):\n        s += i\n    return s\n",
+    "requested_concept": "loop_end",
+    "actual_concept": "loop_end",
+    "rubric_review": {
+      "status": "approved_fixture",
+      "concept_match": true,
+      "origin": "author_supplied_review_fixture_not_teacher_study"
+    },
+    "gold_quality": "good",
+    "provenance": "authored_injected_pack_not_ai_generated"
+  },
+  {
+    "id": "c03",
+    "task": "sum_items",
+    "statement": "返回短整数列表元素总和，空列表返回 0。",
+    "reference": "def solve(xs):\n    s = 0\n    for x in xs:\n        s += x\n    return s\n",
+    "starter": "def solve(xs):\n    return -1\n",
+    "tests": [
+      {
+        "args": [
+          []
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          [
+            -2,
+            4
+          ]
+        ],
+        "expected": 2
+      }
+    ],
+    "witness_inputs": [
+      [
+        []
+      ],
+      [
+        [
+          5
+        ]
+      ],
+      [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      [
+        [
+          -2,
+          4
+        ]
+      ]
+    ],
+    "target_source": "def solve(xs):\n    s = 0\n    for x in xs:\n        s = x\n    return s\n",
+    "requested_concept": "accumulation",
+    "actual_concept": "accumulation",
+    "rubric_review": {
+      "status": "approved_fixture",
+      "concept_match": true,
+      "origin": "author_supplied_review_fixture_not_teacher_study"
+    },
+    "gold_quality": "good",
+    "provenance": "authored_injected_pack_not_ai_generated"
+  },
+  {
+    "id": "c04",
+    "task": "copy_items",
+    "statement": "返回包含所有输入元素、顺序相同的新列表，允许空列表。",
+    "reference": "def solve(xs):\n    out = []\n    for i in range(len(xs)):\n        out.append(xs[i])\n    return out\n",
+    "starter": "def solve(xs):\n    return -1\n",
+    "tests": [
+      {
+        "args": [
+          []
+        ],
+        "expected": []
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": [
+          1
+        ]
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": [
+          1,
+          2
+        ]
+      },
+      {
+        "args": [
+          [
+            -1,
+            3
+          ]
+        ],
+        "expected": [
+          -1,
+          3
+        ]
+      }
+    ],
+    "witness_inputs": [
+      [
+        []
+      ],
+      [
+        [
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          2
+        ]
+      ],
+      [
+        [
+          -1,
+          3
+        ]
+      ]
+    ],
+    "target_source": "def solve(xs):\n    out = []\n    for i in range(len(xs) + 1):\n        out.append(xs[i])\n    return out\n",
+    "requested_concept": "index_boundary",
+    "actual_concept": "index_boundary",
+    "rubric_review": {
+      "status": "approved_fixture",
+      "concept_match": true,
+      "origin": "author_supplied_review_fixture_not_teacher_study"
+    },
+    "gold_quality": "good",
+    "provenance": "authored_injected_pack_not_ai_generated"
+  },
+  {
+    "id": "c05",
+    "task": "max",
+    "statement": "返回非空整数列表的最大值，允许全负数；不允许空列表。",
+    "reference": "def solve(xs):\n    best = xs[0]\n    for x in xs[1:]:\n        if x > best:\n            best = x\n    return best\n",
+    "starter": "def solve(xs):\n    return -1\n",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            4
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "args": [
+          [
+            2,
+            5
+          ]
+        ],
+        "expected": 5
+      }
+    ],
+    "witness_inputs": [
+      [
+        [
+          -5,
+          -2
+        ]
+      ],
+      [
+        [
+          2,
+          9
+        ]
+      ],
+      [
+        [
+          -1
+        ]
+      ],
+      [
+        [
+          0
+        ]
+      ]
+    ],
+    "target_source": "def solve(xs):\n    best = 0\n    for x in xs[1:]:\n        if x > best:\n            best = x\n    return best\n",
+    "requested_concept": "initialization",
+    "actual_concept": "initialization",
+    "rubric_review": {
+      "status": "approved_fixture",
+      "concept_match": true,
+      "origin": "author_supplied_review_fixture_not_teacher_study"
+    },
+    "gold_quality": "weak_tests",
+    "provenance": "authored_injected_pack_not_ai_generated"
+  },
+  {
+    "id": "c06",
+    "task": "inclusive_sum",
+    "statement": "整数 n 在 0..8，返回 1 到 n 的和；n=0 返回 0。",
+    "reference": "def solve(n):\n    s = 0\n    for i in range(1, n + 1):\n        s += i\n    return s\n",
+    "starter": "def solve(xs):\n    return -1\n",
+    "tests": [
+      {
+        "args": [
+          0
+        ],
+        "expected": 0
+      }
+    ],
+    "witness_inputs": [
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        3
+      ],
+      [
+        4
+      ]
+    ],
+    "target_source": "def solve(n):\n    s = 0\n    for i in range(1, n):\n        s += i\n    return s\n",
+    "requested_concept": "loop_end",
+    "actual_concept": "loop_end",
+    "rubric_review": {
+      "status": "approved_fixture",
+      "concept_match": true,
+      "origin": "author_supplied_review_fixture_not_teacher_study"
+    },
+    "gold_quality": "weak_tests",
+    "provenance": "authored_injected_pack_not_ai_generated"
+  },
+  {
+    "id": "c07",
+    "task": "sum_items",
+    "statement": "返回短整数列表元素总和，空列表返回 0。",
+    "reference": "def solve(xs):\n    s = 0\n    for x in xs:\n        s += x\n    return s\n",
+    "starter": "def solve(xs):\n    return -1\n",
+    "tests": [
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": 5
+      }
+    ],
+    "witness_inputs": [
+      [
+        []
+      ],
+      [
+        [
+          5
+        ]
+      ],
+      [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      [
+        [
+          -2,
+          4
+        ]
+      ]
+    ],
+    "target_source": "def solve(xs):\n    s = 0\n    for x in xs:\n        s = x\n    return s\n",
+    "requested_concept": "accumulation",
+    "actual_concept": "accumulation",
+    "rubric_review": {
+      "status": "approved_fixture",
+      "concept_match": true,
+      "origin": "author_supplied_review_fixture_not_teacher_study"
+    },
+    "gold_quality": "weak_tests",
+    "provenance": "authored_injected_pack_not_ai_generated"
+  },
+  {
+    "id": "c08",
+    "task": "copy_items",
+    "statement": "返回包含所有输入元素、顺序相同的新列表，允许空列表。",
+    "reference": "def solve(xs):\n    out = []\n    for i in range(len(xs)):\n        out.append(xs[i])\n    return out\n",
+    "starter": "def solve(xs):\n    return -1\n",
+    "tests": [
+      {
+        "args": [
+          []
+        ],
+        "expected": []
+      }
+    ],
+    "witness_inputs": [
+      [
+        []
+      ],
+      [
+        [
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          2
+        ]
+      ],
+      [
+        [
+          -1,
+          3
+        ]
+      ]
+    ],
+    "target_source": "def solve(xs):\n    out = []\n    for i in range(len(xs) - 1):\n        out.append(xs[i])\n    return out\n",
+    "requested_concept": "index_boundary",
+    "actual_concept": "index_boundary",
+    "rubric_review": {
+      "status": "approved_fixture",
+      "concept_match": true,
+      "origin": "author_supplied_review_fixture_not_teacher_study"
+    },
+    "gold_quality": "weak_tests",
+    "provenance": "authored_injected_pack_not_ai_generated"
+  },
+  {
+    "id": "c09",
+    "task": "inclusive_sum",
+    "statement": "整数 n 在 0..8，返回 1 到 n 的和；n=0 返回 0。",
+    "reference": "def solve(n):\n    return sum(range(n))\n",
+    "starter": "def solve(xs):\n    return -1\n",
+    "tests": [
+      {
+        "args": [
+          2
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          3
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          4
+        ],
+        "expected": 6
+      }
+    ],
+    "witness_inputs": [
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        3
+      ],
+      [
+        4
+      ]
+    ],
+    "target_source": "def solve(n):\n    s = 0\n    for i in range(1, n):\n        s += i\n    return s\n",
+    "requested_concept": "loop_end",
+    "actual_concept": "loop_end",
+    "rubric_review": {
+      "status": "approved_fixture",
+      "concept_match": true,
+      "origin": "author_supplied_review_fixture_not_teacher_study"
+    },
+    "gold_quality": "shared_wrong",
+    "provenance": "authored_injected_pack_not_ai_generated"
+  },
+  {
+    "id": "c10",
+    "task": "sum_items",
+    "statement": "返回短整数列表元素总和，空列表返回 0。",
+    "reference": "def solve(xs):\n    return xs[-1]\n",
+    "starter": "def solve(xs):\n    return -1\n",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            2,
+            4
+          ]
+        ],
+        "expected": 4
+      }
+    ],
+    "witness_inputs": [
+      [
+        []
+      ],
+      [
+        [
+          5
+        ]
+      ],
+      [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      [
+        [
+          -2,
+          4
+        ]
+      ]
+    ],
+    "target_source": "def solve(xs):\n    s = 0\n    for x in xs:\n        s = x\n    return s\n",
+    "requested_concept": "accumulation",
+    "actual_concept": "accumulation",
+    "rubric_review": {
+      "status": "approved_fixture",
+      "concept_match": true,
+      "origin": "author_supplied_review_fixture_not_teacher_study"
+    },
+    "gold_quality": "shared_wrong",
+    "provenance": "authored_injected_pack_not_ai_generated"
+  },
+  {
+    "id": "c11",
+    "task": "max",
+    "statement": "返回非空整数列表的最大值，允许全负数；不允许空列表。",
+    "reference": "def solve(xs):\n    best = xs[0]\n    for x in xs[1:]:\n        if x > best:\n            best = x\n    return best\n",
+    "starter": "def solve(xs):\n    return -1\n",
+    "tests": [
+      {
+        "args": [
+          [
+            -5,
+            -2
+          ]
+        ],
+        "expected": -2
+      },
+      {
+        "args": [
+          [
+            2,
+            9
+          ]
+        ],
+        "expected": 9
+      },
+      {
+        "args": [
+          [
+            -1
+          ]
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            0
+          ]
+        ],
+        "expected": 0
+      }
+    ],
+    "witness_inputs": [
+      [
+        [
+          -5,
+          -2
+        ]
+      ],
+      [
+        [
+          2,
+          9
+        ]
+      ],
+      [
+        [
+          -1
+        ]
+      ],
+      [
+        [
+          0
+        ]
+      ]
+    ],
+    "target_source": "def solve(xs):\n    best = 0\n    for x in xs[1:]:\n        if x > best:\n            best = x\n    return best\n",
+    "requested_concept": "accumulation",
+    "actual_concept": "initialization",
+    "rubric_review": {
+      "status": "approved_fixture",
+      "concept_match": false,
+      "origin": "author_supplied_review_fixture_not_teacher_study"
+    },
+    "gold_quality": "off_concept",
+    "provenance": "authored_injected_pack_not_ai_generated"
+  },
+  {
+    "id": "c12",
+    "task": "inclusive_sum",
+    "statement": "整数 n 在 0..8，返回 1 到 n 的和；n=0 返回 0。",
+    "reference": "def solve(n):\n    s = 0\n    for i in range(1, n + 1):\n        s += i\n    return s\n",
+    "starter": "def solve(xs):\n    return -1\n",
+    "tests": [
+      {
+        "args": [
+          0
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          3
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          4
+        ],
+        "expected": 10
+      }
+    ],
+    "witness_inputs": [
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        3
+      ],
+      [
+        4
+      ]
+    ],
+    "target_source": "def solve(n):\n    s = 0\n    for i in range(1, n):\n        s += i\n    return s\n",
+    "requested_concept": "index_boundary",
+    "actual_concept": "loop_end",
+    "rubric_review": {
+      "status": "approved_fixture",
+      "concept_match": false,
+      "origin": "author_supplied_review_fixture_not_teacher_study"
+    },
+    "gold_quality": "off_concept",
+    "provenance": "authored_injected_pack_not_ai_generated"
+  },
+  {
+    "id": "c13",
+    "task": "sum_items",
+    "statement": "返回短整数列表元素总和，空列表返回 0。",
+    "reference": "def solve(xs):\n    s = 0\n    for x in xs:\n        s += x\n    return s\n",
+    "starter": "def solve(xs):\n    return -1\n",
+    "tests": [
+      {
+        "args": [
+          []
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          [
+            -2,
+            4
+          ]
+        ],
+        "expected": 2
+      }
+    ],
+    "witness_inputs": [
+      [
+        []
+      ],
+      [
+        [
+          5
+        ]
+      ],
+      [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      [
+        [
+          -2,
+          4
+        ]
+      ]
+    ],
+    "target_source": "def solve(xs):\n    s = 0\n    for x in xs:\n        s = x\n    return s\n",
+    "requested_concept": "accumulation",
+    "actual_concept": "accumulation",
+    "rubric_review": {
+      "status": "not_checked",
+      "concept_match": true,
+      "origin": "author_supplied_review_fixture_not_teacher_study"
+    },
+    "gold_quality": "review_missing",
+    "provenance": "authored_injected_pack_not_ai_generated"
+  },
+  {
+    "id": "c14",
+    "task": "copy_items",
+    "statement": "返回包含所有输入元素、顺序相同的新列表，允许空列表。",
+    "reference": "def solve(xs):\n    return [9]\n",
+    "starter": "def solve(xs):\n    return -1\n",
+    "tests": [
+      {
+        "args": [
+          []
+        ],
+        "expected": []
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": [
+          1
+        ]
+      },
+      {
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": [
+          1,
+          2
+        ]
+      },
+      {
+        "args": [
+          [
+            -1,
+            3
+          ]
+        ],
+        "expected": [
+          -1,
+          3
+        ]
+      }
+    ],
+    "witness_inputs": [
+      [
+        []
+      ],
+      [
+        [
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          2
+        ]
+      ],
+      [
+        [
+          -1,
+          3
+        ]
+      ]
+    ],
+    "target_source": "def solve(xs):\n    out = []\n    for i in range(len(xs) + 1):\n        out.append(xs[i])\n    return out\n",
+    "requested_concept": "index_boundary",
+    "actual_concept": "index_boundary",
+    "rubric_review": {
+      "status": "approved_fixture",
+      "concept_match": true,
+      "origin": "author_supplied_review_fixture_not_teacher_study"
+    },
+    "gold_quality": "bad_reference",
+    "provenance": "authored_injected_pack_not_ai_generated"
+  }
+]

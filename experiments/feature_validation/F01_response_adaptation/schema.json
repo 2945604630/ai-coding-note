@@ -1,0 +1,105 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "interpretation": {
+      "type": "string"
+    },
+    "answer_quotes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_sufficiency": {
+      "type": "string",
+      "enum": [
+        "sufficient",
+        "partial",
+        "insufficient"
+      ]
+    },
+    "next_action": {
+      "type": "string",
+      "enum": [
+        "continue_asking",
+        "show_counterexample",
+        "tiered_hint",
+        "request_self_modification",
+        "clarify_meaning",
+        "suspend_for_choice"
+      ]
+    },
+    "student_message": {
+      "type": "string"
+    },
+    "decision_basis": {
+      "type": "string"
+    },
+    "uncertainties": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "execution_requests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "args": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                }
+              ]
+            }
+          },
+          "predicted_actual": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "predicted_expected": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "args",
+          "predicted_actual",
+          "predicted_expected"
+        ]
+      }
+    }
+  },
+  "required": [
+    "interpretation",
+    "answer_quotes",
+    "evidence_sufficiency",
+    "next_action",
+    "student_message",
+    "decision_basis",
+    "uncertainties",
+    "evidence_refs",
+    "execution_requests"
+  ]
+}

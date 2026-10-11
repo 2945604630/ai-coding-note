@@ -1,0 +1,40 @@
+{
+  "MAX": {
+    "case_id": "MAX",
+    "historical_case_id": "05",
+    "task": "max",
+    "statement": "返回非空整数列表最大值，允许全负数；长度1..8，元素在-20..20。",
+    "input_contract": "solve只接收一个整数列表；长度1..8，元素在-20..20，bool不算整数，允许全部为负。",
+    "domain": "default",
+    "review_origin": "repo://experiments/round5_ui_model/cases/05.json",
+    "review_origin_sha256": "9b8023dcd5345b68ea1fdda06c3b647fa917c4032f97e5e0e59e283ec33695d1",
+    "approved_inputs": [
+      [
+        [
+          -5,
+          -2
+        ]
+      ],
+      [
+        [
+          2,
+          9
+        ]
+      ]
+    ],
+    "versions": {
+      "correct": {
+        "source": "def solve(xs):\n    best = 0\n    for x in xs:\n        if x > best:\n            best = x\n    if max(xs) < 0:\n        return max(xs)\n    return best\n",
+        "source_hash": "29b83db76b659c30f96f49c8ad851f6de7051bf7412f373abfbb8ccd3e66b096"
+      },
+      "buggy": {
+        "source": "def solve(xs):\n    return max([0] + xs)\n",
+        "source_hash": "6ba357ba297020e49def79ea7eb231f96e602aa6a2f5a10b30e1e41004b3cd4c"
+      }
+    },
+    "version_origins": {
+      "correct": "repo://experiments/round5_ui_model/cases/05.json",
+      "buggy": "repo://experiments/round5_ui_model/cases/07.json"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "version": "F04_v1",
+  "formal_runs": 1,
+  "cases": 3,
+  "checks_per_case": 3,
+  "model_calls": 0,
+  "plan": [
+    "freeze reviewed historical versions and evaluation",
+    "red test",
+    "add version diff and F03 comparison wrapper",
+    "one formal run",
+    "deterministic regression",
+    "short reports"
+  ],
+  "architecture": "F03 execution + F01 action protocol + F02 validation/termination; deterministic fact feedback",
+  "metrics": [
+    "before_after_identity",
+    "improved",
+    "regression",
+    "remaining_failure",
+    "maintained_pass",
+    "execution_unavailable",
+    "pending_unknown_code",
+    "feedback_protocol_valid"
+  ],
+  "truth": "actual F03 execution and frozen independent oracle; no AI grading",
+  "safe_boundary": "Only registered historical reviewed code and approved inputs; pasted unknown code is saved, never executed",
+  "feedback_scope": "specified inputs only; no global repair, learner mastery, unique cause, or new question generation",
+  "human_review": "Teaching wording needs human review; no real learner outcome data",
+  "approval_origin": "historical author-reviewed frozen fixtures; not independent human certification"
+}

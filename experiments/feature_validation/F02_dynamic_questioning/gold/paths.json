@@ -1,0 +1,364 @@
+[
+  {
+    "case_id": "C01",
+    "program_causes": [
+      "right_endpoint_excluded"
+    ],
+    "student_intent_not_inferable_from_source": true,
+    "competing_interpretations": [
+      "contract misreading",
+      "runtime misunderstanding",
+      "implementation oversight"
+    ],
+    "frozen_reference": "n*(n+1)//2; original & local_patch full grid stored separately",
+    "repair_leak_boundaries": "精确完成全部修改或完整正确代码；重要思路提示另标，不混为完整泄露。"
+  },
+  {
+    "scenario_id": "C01_correct",
+    "kind": "correct",
+    "supported_after_first": "见冻结原文，区分明确表达与尚未说明；不得据此长期确诊。",
+    "supported_after_second": "见冻结原文，最新矛盾撤回旧确定性；新版缺失不假设修复。",
+    "allow_early_stop": true,
+    "allowed_actions_first": [
+      "request_self_modification",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "allowed_actions_second": [
+      "request_self_modification",
+      "suspend_for_choice"
+    ],
+    "expected_resolved": [
+      "boundary",
+      "contract"
+    ],
+    "needs_human_review": true,
+    "non_unique_valid_wording": true
+  },
+  {
+    "scenario_id": "C01_wrong",
+    "kind": "wrong",
+    "supported_after_first": "见冻结原文，区分明确表达与尚未说明；不得据此长期确诊。",
+    "supported_after_second": "见冻结原文，最新矛盾撤回旧确定性；新版缺失不假设修复。",
+    "allow_early_stop": false,
+    "allowed_actions_first": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "allowed_actions_second": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "expected_resolved": [
+      "boundary",
+      "contract"
+    ],
+    "needs_human_review": true,
+    "non_unique_valid_wording": true
+  },
+  {
+    "scenario_id": "C01_partial",
+    "kind": "partial",
+    "supported_after_first": "见冻结原文，区分明确表达与尚未说明；不得据此长期确诊。",
+    "supported_after_second": "见冻结原文，最新矛盾撤回旧确定性；新版缺失不假设修复。",
+    "allow_early_stop": false,
+    "allowed_actions_first": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "allowed_actions_second": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "expected_resolved": [
+      "boundary",
+      "contract"
+    ],
+    "needs_human_review": true,
+    "non_unique_valid_wording": true
+  },
+  {
+    "scenario_id": "C01_unexpected",
+    "kind": "unexpected",
+    "supported_after_first": "见冻结原文，区分明确表达与尚未说明；不得据此长期确诊。",
+    "supported_after_second": "见冻结原文，最新矛盾撤回旧确定性；新版缺失不假设修复。",
+    "allow_early_stop": true,
+    "allowed_actions_first": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "allowed_actions_second": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "expected_resolved": [
+      "boundary",
+      "contract"
+    ],
+    "needs_human_review": true,
+    "non_unique_valid_wording": true
+  },
+  {
+    "case_id": "C02",
+    "program_causes": [
+      "right_endpoint_excluded",
+      "overwrite_instead_of_accumulation"
+    ],
+    "student_intent_not_inferable_from_source": true,
+    "competing_interpretations": [
+      "contract misreading",
+      "runtime misunderstanding",
+      "implementation oversight"
+    ],
+    "frozen_reference": "n*(n+1)//2; original & local_patch full grid stored separately",
+    "repair_leak_boundaries": "精确完成全部修改或完整正确代码；重要思路提示另标，不混为完整泄露。"
+  },
+  {
+    "scenario_id": "C02_correct",
+    "kind": "correct",
+    "supported_after_first": "见冻结原文，区分明确表达与尚未说明；不得据此长期确诊。",
+    "supported_after_second": "见冻结原文，最新矛盾撤回旧确定性；新版缺失不假设修复。",
+    "allow_early_stop": false,
+    "allowed_actions_first": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "allowed_actions_second": [
+      "request_self_modification",
+      "suspend_for_choice"
+    ],
+    "expected_resolved": [
+      "boundary",
+      "contract",
+      "state"
+    ],
+    "needs_human_review": true,
+    "non_unique_valid_wording": true
+  },
+  {
+    "scenario_id": "C02_wrong",
+    "kind": "wrong",
+    "supported_after_first": "见冻结原文，区分明确表达与尚未说明；不得据此长期确诊。",
+    "supported_after_second": "见冻结原文，最新矛盾撤回旧确定性；新版缺失不假设修复。",
+    "allow_early_stop": false,
+    "allowed_actions_first": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "allowed_actions_second": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "expected_resolved": [
+      "boundary",
+      "contract",
+      "state"
+    ],
+    "needs_human_review": true,
+    "non_unique_valid_wording": true
+  },
+  {
+    "scenario_id": "C02_partial",
+    "kind": "partial",
+    "supported_after_first": "见冻结原文，区分明确表达与尚未说明；不得据此长期确诊。",
+    "supported_after_second": "见冻结原文，最新矛盾撤回旧确定性；新版缺失不假设修复。",
+    "allow_early_stop": false,
+    "allowed_actions_first": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "allowed_actions_second": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "expected_resolved": [
+      "boundary",
+      "contract",
+      "state"
+    ],
+    "needs_human_review": true,
+    "non_unique_valid_wording": true
+  },
+  {
+    "scenario_id": "C02_unexpected",
+    "kind": "unexpected",
+    "supported_after_first": "见冻结原文，区分明确表达与尚未说明；不得据此长期确诊。",
+    "supported_after_second": "见冻结原文，最新矛盾撤回旧确定性；新版缺失不假设修复。",
+    "allow_early_stop": true,
+    "allowed_actions_first": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "allowed_actions_second": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "expected_resolved": [
+      "boundary",
+      "contract",
+      "state"
+    ],
+    "needs_human_review": true,
+    "non_unique_valid_wording": true
+  },
+  {
+    "case_id": "C03",
+    "program_causes": [
+      "uncancelled_minus_one_offset; endpoint exclusion compensated_by_plus_n"
+    ],
+    "student_intent_not_inferable_from_source": true,
+    "competing_interpretations": [
+      "contract misreading",
+      "runtime misunderstanding",
+      "implementation oversight"
+    ],
+    "frozen_reference": "n*(n+1)//2; original & local_patch full grid stored separately",
+    "repair_leak_boundaries": "精确完成全部修改或完整正确代码；重要思路提示另标，不混为完整泄露。"
+  },
+  {
+    "scenario_id": "C03_correct",
+    "kind": "correct",
+    "supported_after_first": "见冻结原文，区分明确表达与尚未说明；不得据此长期确诊。",
+    "supported_after_second": "见冻结原文，最新矛盾撤回旧确定性；新版缺失不假设修复。",
+    "allow_early_stop": true,
+    "allowed_actions_first": [
+      "request_self_modification",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "allowed_actions_second": [
+      "request_self_modification",
+      "suspend_for_choice"
+    ],
+    "expected_resolved": [
+      "compensation",
+      "offset",
+      "local_patch_not_general_proof"
+    ],
+    "needs_human_review": true,
+    "non_unique_valid_wording": true
+  },
+  {
+    "scenario_id": "C03_wrong",
+    "kind": "wrong",
+    "supported_after_first": "见冻结原文，区分明确表达与尚未说明；不得据此长期确诊。",
+    "supported_after_second": "见冻结原文，最新矛盾撤回旧确定性；新版缺失不假设修复。",
+    "allow_early_stop": false,
+    "allowed_actions_first": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "allowed_actions_second": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "expected_resolved": [
+      "compensation",
+      "offset",
+      "local_patch_not_general_proof"
+    ],
+    "needs_human_review": true,
+    "non_unique_valid_wording": true
+  },
+  {
+    "scenario_id": "C03_partial",
+    "kind": "partial",
+    "supported_after_first": "见冻结原文，区分明确表达与尚未说明；不得据此长期确诊。",
+    "supported_after_second": "见冻结原文，最新矛盾撤回旧确定性；新版缺失不假设修复。",
+    "allow_early_stop": false,
+    "allowed_actions_first": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "allowed_actions_second": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "expected_resolved": [
+      "compensation",
+      "offset",
+      "local_patch_not_general_proof"
+    ],
+    "needs_human_review": true,
+    "non_unique_valid_wording": true
+  },
+  {
+    "scenario_id": "C03_unexpected",
+    "kind": "unexpected",
+    "supported_after_first": "见冻结原文，区分明确表达与尚未说明；不得据此长期确诊。",
+    "supported_after_second": "见冻结原文，最新矛盾撤回旧确定性；新版缺失不假设修复。",
+    "allow_early_stop": false,
+    "allowed_actions_first": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "allowed_actions_second": [
+      "continue_asking",
+      "show_counterexample",
+      "tiered_hint",
+      "clarify_meaning",
+      "suspend_for_choice"
+    ],
+    "expected_resolved": [
+      "compensation",
+      "offset",
+      "local_patch_not_general_proof"
+    ],
+    "needs_human_review": true,
+    "non_unique_valid_wording": true
+  }
+]
