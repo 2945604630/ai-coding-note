@@ -298,6 +298,8 @@ def create_app(data_dir=None, model_runner=None):
 
     @app.get('/')
     @app.get('/learning-history')
+    @app.get('/mistakes')
+    @app.get('/mistakes/{eid}')
     @app.get('/study/{eid}')
     @app.get('/study/{eid}/assessment')
     def learning_page():
