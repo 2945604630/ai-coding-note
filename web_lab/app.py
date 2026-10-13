@@ -12,7 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, field_validator
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
-from . import reporting, teaching
+from . import reporting, teaching, learning_records
 from .service import Conflict, Service
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -122,7 +122,7 @@ def create_app(data_dir=None, model_runner=None):
         yield
         app.state.service.close()
 
-    app = FastAPI(title='AIC 编程学习台 V2', lifespan=lifespan, docs_url=None, redoc_url=None)
+    app = FastAPI(title='AIC 编程学习台 V3', lifespan=lifespan, docs_url=None, redoc_url=None)
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=['127.0.0.1', 'localhost', *(['testserver'] if model_runner else [])])
 
     @app.middleware('http')
@@ -157,7 +157,7 @@ def create_app(data_dir=None, model_runner=None):
 
     @app.get('/api/health')
     def health():
-        return {'service': 'aic_web_v1', 'ui_version': 'V2', 'status': 'ok', 'model_provider': service().runner.provenance,
+        return {'service': 'aic_web_v1', 'ui_version': 'V3', 'status': 'ok', 'model_provider': service().runner.provenance,
                 'sandbox':service().sandbox.status(), 'ai_provider':service().runner.public_config() if hasattr(service().runner,'public_config') else {'provider':'test_fixture'}}
 
     @app.post('/api/experiments/{eid}/sandbox/run', status_code=202)
@@ -185,6 +185,10 @@ def create_app(data_dir=None, model_runner=None):
     @app.get('/api/demo/cases')
     def demo_cases():
         return teaching.catalog(demo=True)
+
+    @app.get('/api/learning/records')
+    def learner_records():
+        return learning_records.records(service().store)
 
     @app.post('/api/demo/{eid}/verify', status_code=201)
     def verify(eid: str, payload: Verification):
@@ -298,6 +302,7 @@ def create_app(data_dir=None, model_runner=None):
 
     @app.get('/')
     @app.get('/learning-history')
+    @app.get('/learning-review')
     @app.get('/study/{eid}')
     @app.get('/study/{eid}/assessment')
     def learning_page():

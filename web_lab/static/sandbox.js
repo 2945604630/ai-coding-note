@@ -1,56 +1,215 @@
-import { $,esc,time,withOrigin,api,toast } from './ui.js';
+import { $, esc, time, withOrigin, api, toast } from "./ui.js";
+import {
+  runLabels,
+  needsReview,
+  currentJob,
+  versionName,
+  outputsDiffer,
+} from "./learning-state.js";
 
-const labels={queued:'排队中',running:'执行中',completed:'正常运行',passed:'测试通过',failed:'测试失败',
-  timeout:'超时',exception:'运行异常',resource_limit:'资源超限',output_limit:'输出超限',service_error:'执行服务异常',unavailable:'沙箱未就绪'};
-
-export function mountSandbox({eid,version,dirty,state,refresh}){
-  let sending=false,fingerprint='',pending=null;
-  $('#review-state').insertAdjacentHTML('afterend',`<section class="sandbox-panel" aria-label="运行与提交测试">
-    <h2>运行与提交测试</h2><p class="small muted">运行会调用 solve(n)，展示打印内容和返回值。提交会比较 3 个已审核测试的输出；额外打印也参与比较。</p>
-    <label for="sandbox-input" class="small">自定义输入 n（0～8 的整数）</label>
-    <div class="sandbox-actions"><input id="sandbox-input" type="number" min="0" max="8" step="1" value="3" required>
-      <button id="run-code" type="button">运行代码</button><button id="submit-tests" type="button">提交测试</button></div>
-    <p id="sandbox-availability" class="small" role="status"></p>
-    <div id="sandbox-current" aria-live="polite"></div>
-    <details><summary>每次运行记录（含历史版本）</summary><div id="sandbox-history"></div></details>
-  </section>`);
-  function resultHTML(job){
-    const summary=`<strong>${esc(labels[job.status]||job.status)}</strong> · ${job.mode==='run'?'自定义运行':'审核合同提交'} · ${Number(job.elapsed_seconds||0).toFixed(3)} 秒`;
-    return `<article class="sandbox-record"><p>${summary}<br><span class="small muted">${esc(time(job.created_at))} · 源码 ${esc(job.source_sha256.slice(0,12))} · 任务 ${esc(job.task_id.slice(0,8))}</span></p>
-      ${job.error?`<p class="notice error">${esc(job.error)}</p>`:''}
-      ${(job.results||[]).map(r=>`<div class="sandbox-case"><p class="small">输入 n=${esc(r.input)} · ${esc(labels[r.status]||r.status)}${r.output_truncated?' · 输出已截断':''}</p>
-        <span class="small">实际输出 / 标准输出</span><pre>${esc(r.stdout||'（空）')}</pre>
-        ${r.expected_output!=null?`<span class="small">参考输出</span><pre>${esc(r.expected_output)}</pre>`:job.mode==='run'?'<p class="small muted">此输入没有已审核参考结果；本次只记录实际行为。</p>':''}
-        <details${r.stderr?' open':''}><summary>标准错误</summary><pre>${esc(r.stderr||'（空）')}</pre></details></div>`).join('')}
-      ${job.hidden_summary?.total?`<p class="small">隐藏测试：通过 ${job.hidden_summary.passed} / ${job.hidden_summary.total}；输入与输出只在后端保存。</p>`:''}
-      <p class="small muted">${job.executed?'本次实际执行仅适用于该源码版本及本次输入。':'本次没有取得代码实际执行证据。'}有限测试不证明整体正确。</p></article>`;
+export function mountSandbox({
+  eid,
+  version,
+  dirty,
+  state,
+  refresh,
+  showTab,
+  viewVersion,
+  locateLine,
+  onStateChange,
+}) {
+  let sending = false,
+    fingerprint = "",
+    pending = null,
+    reviewFingerprint = "";
+  $("#run-controls").innerHTML =
+    `<label for="sandbox-input">输入 n</label><input id="sandbox-input" aria-label="输入 n，0 到 8 的整数" type="number" min="0" max="8" step="1" value="3" required><button id="run-code" class="primary" type="button">运行一次</button><button id="submit-tests" type="button">提交测试</button>`;
+  function resultHTML(job) {
+    const mismatch = job.status === "completed" && needsReview(job),
+      bad = needsReview(job);
+    const label = mismatch
+      ? "运行完成 · 输出与参考不一致"
+      : runLabels[job.status] || job.status;
+    const versionLabel = versionName(
+      state().code_versions,
+      state().code_versions.find((v) => v.version_id === job.version_id),
+    );
+    const waiting = ["queued", "running"].includes(job.status);
+    return `<article class="sandbox-record ${bad ? "result-fail" : ""}"><div class="result-heading"><strong>${esc(label)}</strong><span class="small muted">${esc(versionLabel)} · ${job.mode === "run" ? "单次运行" : "提交测试"}${waiting ? "" : ` · ${Number(job.elapsed_seconds || 0).toFixed(2)} 秒`}</span></div>
+      ${waiting ? '<p class="notice">任务已保存，正在等待结果。刷新后可以继续查看。</p>' : ""}
+      ${job.error ? `<p class="notice error">${esc(job.error)}</p>` : ""}
+      ${job.status === "timeout" ? '<p class="notice error">超过运行时间限制。先检查循环是否能结束，再修改代码重新运行。</p>' : ""}
+      ${(job.results || [])
+        .map((r, i) => {
+          const different = outputsDiffer(r);
+          const line = [
+            ...(r.stderr || "").matchAll(
+              /File "\/tmp\/student\.py", line (\d+)/g,
+            ),
+          ].at(-1)?.[1];
+          return `<div class="sandbox-case"><div class="case-result-heading"><strong>输入 n = ${esc(r.input)}</strong><span class="${different || r.stderr ? "fail-text" : "muted"} small">${r.status === "passed" ? "通过" : different ? "输出不同" : runLabels[r.status] || r.status}${r.output_truncated ? " · 输出已截断" : ""}</span></div><div class="output-pair"><div><span class="small muted">实际输出（含返回值）</span><pre>${esc(r.stdout || "（空）")}</pre></div>${r.expected_output != null ? `<div><span class="small muted">参考输出</span><pre>${esc(r.expected_output)}</pre></div>` : '<p class="small muted">这个输入没有已审核参考输出，仅记录实际行为。</p>'}</div>
+        ${r.stderr ? `<div class="traceback"><div class="case-result-heading"><strong class="small fail-text">Python 错误信息</strong>${line ? `<button class="link" data-error-line="${line}" data-error-version="${job.version_id}">定位第 ${line} 行 →</button>` : ""}</div><pre>${esc(r.stderr)}</pre></div>` : ""}</div>`;
+        })
+        .join("")}
+      ${job.hidden_summary?.total ? `<p class="small">隐藏测试通过 ${job.hidden_summary.passed} / ${job.hidden_summary.total}；具体输入与输出不展示。</p>` : ""}
+      ${!waiting ? `<p class="evidence-footnote">${job.executed ? "本次实际执行只对应这个版本与这些输入。" : "本次没有取得实际执行证据。"}有限测试不证明整体正确。</p><details class="result-source"><summary>运行时间与来源</summary><p class="small muted">${esc(time(job.created_at))} · 版本指纹 ${esc(job.source_sha256.slice(0, 12))} · 任务 ${esc(job.task_id.slice(0, 8))}</p></details>` : ""}</article>`;
   }
-  function render(){
-    const sandbox=state().sandbox||{ready:false,reason:'未取得沙箱状态',jobs:[]},v=version(),changed=dirty();
-    const busy=sending||sandbox.jobs.some(j=>['queued','running'].includes(j.status));
-    $('#run-code').disabled=busy||changed||!sandbox.ready;$('#submit-tests').disabled=busy||changed||!sandbox.ready;
-    $('#sandbox-availability').textContent=changed?'请先保存编辑，再运行新版本。':!sandbox.ready?sandbox.reason:busy?'运行已保存，等待执行结果…':'使用当前选中保存版本；运行与提交各保存一条独立记录。';
-    const mark=JSON.stringify([sandbox.jobs,selectedIdentity(),changed]);
-    if(mark===fingerprint)return;fingerprint=mark;
-    const current=sandbox.jobs.filter(j=>j.version_id===v.version_id&&j.source_sha256===v.source_sha256);
-    $('#sandbox-current').innerHTML=changed?'<p class="notice">草稿尚未运行。历史记录不能验证这份编辑。</p>':current.length?resultHTML(current.at(-1)):'<p class="small muted">这个源码版本还没有沙箱运行记录。</p>';
-    $('#sandbox-history').innerHTML=[...sandbox.jobs].reverse().map(j=>`<details><summary>${esc(time(j.created_at))} · ${esc(labels[j.status]||j.status)} · ${j.version_id===v.version_id?'选中版本':'历史版本'} ${esc(j.source_sha256.slice(0,12))}</summary>${resultHTML(j)}</details>`).join('')||'<p class="small muted">暂无运行记录。</p>';
+  function bindResults(container) {
+    container.querySelectorAll("[data-error-line]").forEach(
+      (b) =>
+        (b.onclick = () => {
+          if (viewVersion(b.dataset.errorVersion)) {
+            showTab("code");
+            locateLine(Number(b.dataset.errorLine));
+          }
+        }),
+    );
+    container.querySelectorAll("[data-review-version]").forEach(
+      (b) =>
+        (b.onclick = () => {
+          if (viewVersion(b.dataset.reviewVersion)) showTab("code");
+        }),
+    );
   }
-  function selectedIdentity(){return version().version_id+version().source_sha256;}
-  async function send(mode){
-    if(sending||dirty()||!state().sandbox?.ready)return;
-    const input=$('#sandbox-input');
-    if(mode==='run'&&(!input.reportValidity()||!Number.isInteger(Number(input.value))))return;
-    const v=version(),data=withOrigin({version_id:v.version_id,source_sha256:v.source_sha256,...(mode==='run'?{input:Number(input.value)}:{})});
-    const signature=JSON.stringify([mode,data]);
-    if(!pending||pending.signature!==signature)pending={signature,request_id:crypto.randomUUID()};
-    sending=true;render();
-    try{
-      const job=await api(`/api/experiments/${eid}/sandbox/${mode==='run'?'run':'submit'}`,{...data,request_id:pending.request_id});
-      pending=null;await refresh();toast(['queued','running'].includes(job.status)?'运行任务已保存。':labels[job.status]||job.status,!['queued','running','completed','passed'].includes(job.status));
-    }catch(err){toast('执行请求未成功：'+err.message,true);try{await refresh();}catch{}}
-    finally{sending=false;render();}
+  function render() {
+    const s = state().sandbox || {
+        ready: false,
+        reason: "未取得沙箱状态",
+        jobs: [],
+      },
+      v = version(),
+      changed = dirty();
+    const busy =
+      sending || s.jobs.some((j) => ["queued", "running"].includes(j.status));
+    $("#run-code").disabled = busy || changed || !s.ready;
+    $("#submit-tests").disabled = busy || changed || !s.ready;
+    $("#run-code").textContent = busy ? "运行中…" : "运行一次";
+    $("#review-state").className =
+      "review-state " + (changed || !s.ready ? "warning" : "muted");
+    $("#review-state").textContent = changed
+      ? "草稿已保留在当前浏览器。先保存，才能运行和发送辅导。"
+      : !s.ready
+        ? s.reason
+        : busy
+          ? "运行任务已保存，等待结果；这时可以继续编辑。"
+          : v.version_id !== state().current_code_version_id
+            ? "运行只检查这个历史版本；辅导仍需要回到当前保存版本。"
+            : "已保存，可以运行一次，或提交 3 个已审核测试。";
+    const mark = JSON.stringify([
+      s.jobs,
+      v.version_id,
+      v.source_sha256,
+      changed,
+    ]);
+    if (mark !== fingerprint) {
+      fingerprint = mark;
+      const latest = currentJob(s.jobs, v);
+      $("#sandbox-current").innerHTML = changed
+        ? '<p class="notice">这份草稿尚未运行。原保存版本的结果保留在回顾与版本记录中。</p>'
+        : latest
+          ? resultHTML(latest)
+          : '<p class="empty compact">这个版本还没有运行记录。试一个小输入，观察实际输出。</p>';
+      $("#sandbox-history").innerHTML =
+        [...s.jobs]
+          .reverse()
+          .map(
+            (j) =>
+              `<details><summary>${esc(time(j.created_at))} · ${esc(runLabels[j.status])} · ${esc(
+                versionName(
+                  state().code_versions,
+                  state().code_versions.find(
+                    (v) => v.version_id === j.version_id,
+                  ),
+                ),
+              )}</summary>${resultHTML(j)}</details>`,
+          )
+          .join("") || '<p class="empty compact">尚未运行。</p>';
+      bindResults($("#sandbox-current"));
+      bindResults($("#sandbox-history"));
+    }
+    const reviewMark = JSON.stringify(s.jobs);
+    if (reviewMark !== reviewFingerprint) {
+      reviewFingerprint = reviewMark;
+      const failures = s.jobs.filter(needsReview);
+      $("#review-count").textContent = failures.length || "";
+      $("#review-list").innerHTML =
+        [...failures]
+          .reverse()
+          .map((j) => {
+            const after = s.jobs.find(
+              (x) =>
+                x.created_at > j.created_at &&
+                x.version_id !== j.version_id &&
+                x.status === "passed",
+            );
+            return `<details class="review-item"><summary><span>${esc(
+              versionName(
+                state().code_versions,
+                state().code_versions.find(
+                  (v) => v.version_id === j.version_id,
+                ),
+              ),
+            )} · ${esc(j.status === "completed" ? "输出与参考不一致" : runLabels[j.status])}</span><small>${esc(time(j.created_at))}${after ? " · 后续版本已有指定测试通过" : ""}</small></summary>${resultHTML(j)}<button data-review-version="${j.version_id}">查看当时的代码 →</button></details>`;
+          })
+          .join("") ||
+        '<p class="empty compact">尚无失败运行。后续报错、超时和输出差异会保留在这里。</p>';
+      bindResults($("#review-list"));
+    }
   }
-  $('#run-code').onclick=()=>send('run');$('#submit-tests').onclick=()=>send('submit');
-  return {render};
+  async function send(mode) {
+    if (
+      sending ||
+      dirty() ||
+      !state().sandbox?.ready ||
+      state().sandbox.jobs.some((j) => ["queued", "running"].includes(j.status))
+    )
+      return;
+    const input = $("#sandbox-input");
+    if (
+      mode === "run" &&
+      (!input.reportValidity() || !Number.isInteger(Number(input.value)))
+    )
+      return;
+    const v = version(),
+      data = withOrigin({
+        version_id: v.version_id,
+        source_sha256: v.source_sha256,
+        ...(mode === "run" ? { input: Number(input.value) } : {}),
+      });
+    const signature = JSON.stringify([mode, data]);
+    if (!pending || pending.signature !== signature)
+      pending = { signature, request_id: crypto.randomUUID() };
+    sending = true;
+    showTab("code");
+    render();
+    onStateChange();
+    try {
+      await api(
+        `/api/experiments/${eid}/sandbox/${mode === "run" ? "run" : "submit"}`,
+        { ...data, request_id: pending.request_id },
+      );
+      pending = null;
+      await refresh();
+      toast("运行任务已保存，结果会自动更新。");
+    } catch (error) {
+      toast("执行请求未成功：" + error.message, true);
+      try {
+        await refresh();
+      } catch {}
+    } finally {
+      sending = false;
+      render();
+      onStateChange();
+    }
+  }
+  $("#run-code").onclick = () => send("run");
+  $("#submit-tests").onclick = () => send("submit");
+  return {
+    render,
+    busy: () =>
+      sending ||
+      (state().sandbox?.jobs || []).some((j) =>
+        ["queued", "running"].includes(j.status),
+      ),
+  };
 }

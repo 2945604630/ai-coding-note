@@ -34,7 +34,7 @@ def lock_data(root):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='AIC local learning app V2')
+    parser = argparse.ArgumentParser(description='AIC local learning app V3')
     parser.add_argument('--port', type=int, default=8000)
     parser.add_argument('--data-dir', type=Path)
     parser.add_argument('--no-browser', action='store_true')
@@ -61,7 +61,7 @@ def main():
                 except OSError:
                     time.sleep(.2)
         threading.Thread(target=open_when_ready, daemon=True).start()
-    print(f'AIC V2: {url}\nData: {root}', flush=True)
+    print(f'AIC V3: {url}\nData: {root}', flush=True)
     try:
         uvicorn.run(create_app(root), host='127.0.0.1', port=args.port, workers=1, log_level='info')
     finally:
