@@ -1,65 +1,47 @@
-# AIC 学习台 V2 · 本机有限试用
+# AIC AI 编程学习台
 
-AIC 是一个将代码版本、真实执行记录和 AI 教学对话关联起来的本地 Python 编程练习台。包含 F01～F05、学习页面与实验管理、Docker 沙箱、AIProvider，以及当前版本执行证据投影。运行完成、指定测试通过、教学主张核验分别记录；不自动认定学习者掌握或程序整体正确。
+面向 Python 初学者的 AI 编程练习原型，将代码编辑 → Docker 真实执行 → 版本证据 → AI 辅导 → 错误与学习记录连接起来。
 
-## 首次安装与启动
+新 Agent 从 [AGENT_HANDOFF.md](AGENT_HANDOFF.md) 开始；[PROJECT_STATUS.md](PROJECT_STATUS.md) 是当前进度的唯一权威摘要。系统关系见 [ARCHITECTURE.md](ARCHITECTURE.md)，使用边界见 [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md)。本轮只整理工程，暂停功能开发。
 
-要求 Windows 10/11、Python 3.12、Git；自由代码执行还要求已启用虚拟化和 WSL2 的 Docker Desktop、可用的 Linux Engine、cgroup v2 与默认 seccomp。安装和管理员设置由使用者完成。Codex CLI 是可选的服务器端依赖；使用 `codex_cli` 时需自行安装兼容 CLI 并通过产品登录。离线使用 `disabled` 与 S0。
+## 已实现
 
-```powershell
-git clone https://github.com/2945604630/ai-coding-note.git
-cd ai-coding-note
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-web.txt
-Copy-Item .env.example .env
-# Docker Desktop 启动并切换到 Linux 容器后，首次在此机器构建、验收：
-.\.venv\Scripts\python.exe -X utf8 -m web_lab.sandbox_setup check --data-dir data/aic_demo
-.\.venv\Scripts\python.exe -X utf8 -m web_lab.sandbox_setup build --data-dir data/aic_demo
-.\.venv\Scripts\python.exe -X utf8 -m web_lab.sandbox_setup accept --data-dir data/aic_demo
-.\.venv\Scripts\python.exe -X utf8 -m web_lab --port 8006 --data-dir data/aic_demo
-```
+- main 和 cleanup 保留 V2 Web：学习首页、代码编辑、教学对话、版本与记录、实验管理和导出。
+- 两套 V3 UI 已分别实现于 `ui/codehelper-reference` 和 `ui/agent-exploration`，尚未选择或合并；切换对应分支才会看到 V3 页面。
+- Docker sandbox 独立执行已保存的新代码。run 展示一次观察；submit 比较既有合同的指定测试。任务关联 session、version、SHA-256、输入、真实输出和清理状态。
+- AI Provider 支持 `codex_cli` / 兼容 Chat Completions 的 `api` / `disabled`。服务端将当前保存版本的执行记录投影为 execution_context，再进入教学快照；版本变化会阻断旧建议。
+- F01：一次回应的有限教学动作；F02：有停止条件的连续追问。原提示、格式、守卫和规则模式保留。
+- F03：审核白名单的事实核验；F04：修改前后版本与回归对照；F05：首次作答、帮助来源和有限资格记录。自由代码的 Docker 通路独立于这些白名单。
 
-首次验收只执行已定义的代表场景及必要安全守卫，不调用 AI。本机镜像和验收收据不随仓库上传；新克隆不能继承其他机器的安全验收。验收失败时自由执行保持关闭，禁止主机执行回退。网页和离线功能仍可启动。已有环境的一条启动命令见下文；也可运行 `start_web.bat`。
+## 尚未实现或证明
 
-轻量回归使用模拟 Provider/执行传输，不产生付费请求或 Docker 压力测试：
+没有长期学习效果证据，也没有成立的独立教学算法创新。P2-A / B / R1 均已 NO-GO，不再继续小机制海选。不支持公网多人恶意代码执行；题目与 Python 合同有限。外部 API 需使用者自行配置，尚未完成真实外部 API 联通和回复质量验收。两套 V3 UI 待最终选择及真人完整练习。
+
+## 最短本地启动
+
+需要 Python 3.12。以下采用离线规则，不发起模型请求；Docker 未验收时网页可用，自由执行关闭。
 
 ```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-.\.venv\Scripts\python.exe -X utf8 -m unittest web_lab.tests.test_ai_provider web_lab.tests.test_api web_lab.tests.test_demo web_lab.tests.test_learning_v2 web_lab.tests.test_sandbox
-```
-
-`test_teaching_execution` 的真实 Docker A/B/C 验收代码另行保留，只应在本机沙箱验收后按需运行；本次 GitHub 初始化不重复执行。历史验收文档中的本地收据、模型输出和数据库未上传，不能以文档替代新机器的验收。
-
-## 当前能力与操作
-
-2026-10-11 已构建固定 Python 镜像并通过真实 Docker 隔离验收。网页现在可以运行和提交新保存、未登记的 Python 源码。F03/F04 原白名单与历史数据保留；AIProvider 已支持 codex_cli/api/disabled，本轮没有付费 API 调用。
-
-2026-10-12 已接入当前版本执行上下文：保存代码，等待运行或提交结束，再向右侧 AI 发送疑问，服务器会自动带入准确版本/hash 与已保存的 Docker 结果。无新版运行、失败、超时与过期记录都有独立标记；生成期间保存新版会阻断该轮建议。完整验收与限制见 [teaching_execution_integration.md](teaching_execution_integration.md)。本轮使用 Provider 替身验收，未调用真实模型。
-
-在项目目录执行一条启动命令：
-
-```powershell
+python -m pip install -r requirements-web.txt
+$env:AIC_AI_PROVIDER = 'disabled'
 python -X utf8 -m web_lab --port 8006 --data-dir data/aic_demo
 ```
 
-打开 [本地学习台](http://127.0.0.1:8006/)。交付时服务已在该地址运行，重复执行会打开现有服务。数据位于 `data/aic_demo`。修改配置后须先停止现有 AIC 进程再启动；不要用两个进程或多个 worker 共享此目录。依赖见 `requirements-web.txt`。
+打开 [本地学习台](http://127.0.0.1:8006/)，选择 S0。已有依赖时只需后两行；原 `start_web.bat` 沿用当前 Provider 配置，默认是 codex_cli。一个数据目录只允许一个服务进程。
 
-先保存修改，再使用「运行代码」或「提交测试」。代码需要定义 `solve(n)`；输入是 0～8 的整数，布尔值不合法。运行使用自定义输入，展示 stdout/stderr 和函数返回值；审核输入会附参考输出，其余输入记录空参考，不作判题。提交只比较既有合同的 0、1、3 三例；额外打印也参与比较。输出与记录在代码面板内，向下滚动可查看全部测试；运行历史可展开、刷新恢复。
+首次虚拟环境、Docker build/accept 和 UI 试用见 [本地设置](docs/setup/LOCAL_START.md)；模型配置见 [AI Provider](docs/setup/AI_provider_setup.md)，示例见 [.env.example](.env.example)。Key 仅在服务器 `.env` 或环境变量。新机器必须独立验收 Docker，不能继承本机收据。
 
-每次点击生成独立任务，保存源码版本和 SHA-256、输入、实际/参考输出、状态、耗时及执行/清理证据。未保存草稿不能运行；切换版本只展示该版本结果。新沙箱记录不把自由源码变成 F03/F04 审核版本，也不证明掌握或整体正确。
+## 轻量回归
 
-新证据辅导使用 S1；固定 S0 规则仍为原算法。AI 只收到带来源和截断标记的有限摘录，原始记录保留。先完成本次运行再发送；教学快照不会在任务结束后回填。仍保留首次引导加最多两次后续回复，因版本变化阻断后的原快照重试不能沿用为新版，请新建会话继续。
+```powershell
+python -m pip install -r requirements-dev.txt
+python -X utf8 -m unittest web_lab.tests.test_ai_provider web_lab.tests.test_api web_lab.tests.test_demo web_lab.tests.test_learning_v2 web_lab.tests.test_sandbox
+python -X utf8 -m unittest experiments.feature_validation.F01_response_adaptation.test_core experiments.feature_validation.F02_dynamic_questioning.test_core experiments.feature_validation.F03_evidence_verification.test_verifier experiments.feature_validation.F04_self_modification.test_core experiments.feature_validation.F05_independent_assessment.test_core
+python -X utf8 scripts/check_repository.py
+```
 
-默认 AI 继续使用已登录 Codex CLI。需要离线时在服务器 `.env` 或环境变量设置 `AIC_AI_PROVIDER=disabled`；未来 API 配置见 [AI_provider_setup.md](AI_provider_setup.md)，示例不含真实密钥。
+测试使用 Provider/沙箱传输替身，以及审核固定案例，不调用模型或启动 Docker 任务。不要以无筛选的测试发现替代：`test_sandbox_live` 与 `test_teaching_execution` 含真实 Docker 场景。
 
-当前验收仅适合可信本机单人有限练习。服务固定监听 127.0.0.1；普通 Docker 共享 Linux 内核，没有验收 gVisor/Kata/microVM/ECI。Python 仅标准库，不能安装依赖、联网、使用 C/C++ 或自选启动命令；每例限制 0.5 CPU、128 MiB、32 进程、容器内 3 秒及控制端 6 秒、合并输出 16 KiB、临时空间 16 MiB、单文件 1 MiB。不要将此服务转发到局域网或公网。
+源码和测试保留原目录 `web_lab/`、`web_lab/tests/`、`experiments/feature_validation/`、`experiments/tests/`。当前设置、架构细节、验收分别在 `docs/setup/`、`docs/architecture/`、`docs/validation/`。历史从 [归档索引](docs/archive/README.md) 按需查阅。
 
-[sandbox_test_results.md](sandbox_test_results.md)记录实测结果、证据、复验步骤及剩余安全限制。镜像、执行策略或 Engine 变化后入口会关闭，须重新 build/accept；没有通过验收时不会回退到宿主 Python。
-
-## GitHub 与 UI 分支
-
-仓库只分发源码及必要静态工件。GitHub Pages 无法运行 FastAPI、SQLite、Docker 或服务器端 AIProvider，因此不能完整部署本项目；不要公开转发本地执行服务。
-
-`main` 保存稳定 V2；`ui/codehelper-reference` 用于后续参考编程练习、错题记录和教学交互理念，不复制未授权代码或素材；`ui/agent-exploration` 用于后续独立调研和实现 UI/UX。两条分支从同一首次提交开始，本轮没有 UI 修改。开发规范、发布脱敏与排除范围见 [GITHUB_SETUP.md](GITHUB_SETUP.md)。
-
-当前未选择 LICENSE，不声明新的开源授权。未捆绑第三方实现或 CodeHelper 素材；Python/FastAPI/Uvicorn/httpx、Docker 基础镜像和可选 CLI 的许可证及使用条件分别适用。公开复用或后续引入第三方素材前，应由项目所有者确认许可证。
+Git 操作见 [GitHub 说明](docs/setup/GITHUB_SETUP.md)。GitHub Pages 无法运行 FastAPI、SQLite、Docker 和服务器端 Provider。尚未选择 LICENSE，依赖许可分别适用。
