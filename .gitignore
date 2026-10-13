@@ -41,8 +41,9 @@ build/
 *.tsbuildinfo
 .DS_Store
 Thumbs.db
-# Local research archives and reports are retained outside the V2 release.
-/docs/
+# Unreviewed local research stays private; reviewed documents are allowed below.
+/docs/**
+!/docs/**/
 /P2_*.md
 /AIC_final_route_assessment.md
 /PRODUCT.md
@@ -218,3 +219,44 @@ Thumbs.db
 !/experiments/tests/test_runner.py
 !/experiments/transforms.py
 !/experiments/worker.py
+
+# Cleanup: local work and reviewed publication documents (explicit allowlist).
+/.planning/
+/.worktrees/
+/.cache/
+/.npm/
+/.pnpm-store/
+/.yarn/cache/
+*.sqlite3-wal
+*.sqlite3-shm
+service.lock
+execution_receipt*.json
+acceptance.json
+runtime.json
+!/web_lab/v2_validation/
+/web_lab/v2_validation/**
+!/web_lab/demo_validation/
+/web_lab/demo_validation/**
+!/AIC_final_route_assessment.md
+!/P2_A_failure_cases.md
+!/P2_A_next_decision.md
+!/P2_A_probe_feasibility.md
+!/P2_B_feasibility.md
+!/P2_B_next_decision.md
+!/P2_R1_feasibility.md
+!/P2_R1_next_decision.md
+!/P2_final_recommendation.md
+!/P2_innovation_candidates.md
+!/P2_oss_prior_art.md
+!/P2_project_reselection.md
+!/PRODUCT.md
+!/docs/research/round5_ui_model_validation/phase1_preparation_report.md
+!/docs/superpowers/plans/2026-10-10-aic-web-v1.md
+!/docs/superpowers/specs/2026-10-10-aic-web-v1-design.md
+!/web_lab/demo_validation/PLAN.md
+!/web_lab/demo_validation/README.md
+!/web_lab/demo_validation/integration_data_integrity_report.md
+!/web_lab/demo_validation/remaining_issues.md
+!/web_lab/v2_validation/PLAN.md
+!/web_lab/v2_validation/V2_changes.md
+!/web_lab/v2_validation/V2_limitations.md
