@@ -342,3 +342,4 @@ runtime.json
 !/docs/validation/CLEANUP_INVENTORY.md
 !/docs/validation/CLEANUP_VALIDATION.md
 !/docs/validation/RETAINED_LOCAL_FILES.md
+!/docs/validation/PHASE0_BASELINE_CLOSURE_REPORT.md

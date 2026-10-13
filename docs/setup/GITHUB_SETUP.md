@@ -9,7 +9,7 @@
 | ui/agent-exploration | 已实现方向二 UI，未合并 | f1200ca |
 | chore/project-cleanup | 从 main 创建的文档/归档整理 | 用 git log -1 查询 |
 
-两套 UI 已分别提交；初始化时三分支相同的描述只属于历史。本轮不修改三分支，不自动合并，不 force push 或重写历史。
+两套 UI 已分别提交；初始化时三分支相同的描述只属于历史。Phase 0 已按明确授权将 cleanup fast-forward 合入 main，两个 UI 分支仍独立；当前状态见 [收口报告](../validation/PHASE0_BASELINE_CLOSURE_REPORT.md)。不自动合并 UI，不 force push 或重写历史。
 
 ## 日常操作
 
@@ -47,4 +47,4 @@ python -X utf8 scripts/check_repository.py
 
 本机直连 GitHub 曾超时，现有系统 loopback 代理可用。必要时仅为当前 Git 命令设置自己的代理：`git -c http.proxy=<已有本机代理URL> push -u origin chore/project-cleanup`。不改全局/系统设置，不关闭 TLS 校验，不打印或读取认证凭据。使用已有 Git Credential Manager 登录。
 
-初始脱敏发布 d6e42ff、远程核对 c40029c。本轮三个主要远程分支已读取并与本地核对；整理分支单独提交/推送。当前本轮验收见 [CLEANUP_VALIDATION.md](../validation/CLEANUP_VALIDATION.md)。
+初始脱敏发布 d6e42ff、远程核对 c40029c；2026-10-13 整理分支单独提交/推送，历史验收见 [CLEANUP_VALIDATION.md](../validation/CLEANUP_VALIDATION.md)。2026-10-14 Phase 0 重新核对四个分支并收口 main，最新结果见上述收口报告。

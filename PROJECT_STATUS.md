@@ -1,10 +1,10 @@
 # 当前项目状态
 
-更新：2026-10-13，Asia/Shanghai。此文件是当前进度的唯一权威摘要；历史报告只解释当时判断。
+更新：2026-10-14，Asia/Shanghai。此文件是当前进度的唯一权威摘要；历史报告只解释当时判断。
 
 ## 当前阶段
 
-工程 Demo 基本完成，产品交互仍待最终收敛。暂停功能开发，完成清理与交接；cleanup 基于稳定 V2，两个 V3 方案各在独立 UI 分支，尚未合并。
+工程 Demo 基本完成，产品交互仍待最终收敛。Phase 0 已将基于稳定 V2 的 cleanup fast-forward 收口到 main；两个 V3 方案各在独立 UI 分支，尚未选定或合并。本轮没有功能或 UI 开发。
 
 状态使用 DONE / PARTIAL / HOLD / NO-GO / NOT STARTED。DONE 仅指所列工程范围完成，不代表教学有效或公网安全。
 
@@ -34,10 +34,10 @@
 
 ## 当前真正的问题
 
-技术能力已经很多，但整体学习交互仍不够自然。下一步先比较两个 V3、选择方向，让真人完成看题 → 编辑 → 保存 → 运行/提交 → 辅导 → 修改 → 回顾，再修复实际交互问题，随后准备 AIC 材料。增加功能不能替代这些工作。
+技术能力已经很多，但整体学习交互仍不够自然。下一步进入 Phase 1：比较 `ui/codehelper-reference` 与 `ui/agent-exploration`，进行最终 UI 选型。
 
 ## 本轮整理
 
 源码、教学逻辑、沙箱策略、Provider、测试和冻结工件保持 main 基线原字节与路径。历史报告提供可移植归档；历史清单引用的本机原件不改写、不重算冻结摘要。本机数据库、收据、原始调用、截图与备份不入 Git。
 
-当前验证见 [CLEANUP_VALIDATION.md](docs/validation/CLEANUP_VALIDATION.md)，移动清单见 [CLEANUP_INVENTORY.md](docs/validation/CLEANUP_INVENTORY.md)。本轮不做真人试用、真实模型调用或 Docker 实测，不把历史验收冒称为此次结果。
+当前 Phase 0 验证见 [PHASE0_BASELINE_CLOSURE_REPORT.md](docs/validation/PHASE0_BASELINE_CLOSURE_REPORT.md)；2026-10-13 整理验收见 [CLEANUP_VALIDATION.md](docs/validation/CLEANUP_VALIDATION.md)，移动清单见 [CLEANUP_INVENTORY.md](docs/validation/CLEANUP_INVENTORY.md)。本轮不做真人试用、真实模型调用或 Docker 执行实测，不把历史验收冒称为此次结果。

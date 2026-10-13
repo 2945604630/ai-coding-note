@@ -25,7 +25,7 @@ python -X utf8 -m web_lab --port 8006 --data-dir data/aic_demo
 
 打开 [127.0.0.1:8006](http://127.0.0.1:8006/)，选择固定规则 S0，不需要 Key/CLI 登录。Docker 未验收时自由执行关闭；新机器按 [本地设置](docs/setup/LOCAL_START.md) 独立 build/accept。真实 AI 配置见 [Provider 设置](docs/setup/AI_provider_setup.md)，改配置须停止旧 AIC 服务再启动。
 
-README 有两组显式轻量回归；仓库检查是 `python -X utf8 scripts/check_repository.py`。不自动运行历史模型批处理或真实 Docker 测试。本轮未重新确认后台服务、Docker、模型的实时可用性。
+README 有两组显式轻量回归；仓库检查是 `python -X utf8 scripts/check_repository.py`。不自动运行历史模型批处理或真实 Docker 测试。Phase 0 使用独立临时数据验证了离线启动；既有后台服务、Docker 实际执行和真实模型的实时可用性未重新验收。
 
 ## 代码入口
 
@@ -56,12 +56,12 @@ README 有两组显式轻量回归；仓库检查是 `python -X utf8 scripts/che
 
 | 分支 | 角色 | 整理前提交 |
 | --- | --- | --- |
-| main | 稳定 V2 工程基线 | c40029c |
+| main | 已收口 cleanup 的稳定 V2 工程基线 | c40029c（整理前） |
 | ui/codehelper-reference | 方向一：参考型工作台、错题与历史 | b194e0b |
 | ui/agent-exploration | 方向二：代码优先工作台、错误/版本回顾 | f1200ca |
 | chore/project-cleanup | 本次整理，基于 main | 用 git log -1 获取当前提交 |
 
-本轮不修改三个主要分支，cleanup 单独推送，不自动合并 main。比较 V3 使用独立数据目录和端口，详见本地设置；UI 分支尚未包含本轮文档迁移。其报告只读导出到 `docs/archive/old-ui/`，不是 UI 代码合并。
+Phase 0 已按明确授权将 cleanup fast-forward 合入 main，保留两次整理提交及 cleanup 分支。当前 main 提交用 `git rev-parse main` 查询，验收见 [Phase 0 收口报告](docs/validation/PHASE0_BASELINE_CLOSURE_REPORT.md)。比较 V3 使用独立数据目录和端口，详见本地设置；两个 UI 分支仍独立，尚未包含本轮文档迁移。其报告只读导出到 `docs/archive/old-ui/`，没有合入 UI 代码。
 
 ## 哪些文件不要顺手改删
 
@@ -71,11 +71,7 @@ README 有两组显式轻量回归；仓库检查是 `python -X utf8 scripts/che
 
 ## 推荐下一个任务
 
-1. 比较两个 V3 UI 的完整练习流程。
-2. 由使用者选择最终方向。
-3. 真人完成一次完整练习，区分真实输入、脚本、固定规则和真实 AI。
-4. 修复观察到的交互问题。
-5. 再准备 AIC 提交材料；日期、资格与规则届时另行核对。
+进入 Phase 1：比较 `ui/codehelper-reference` 与 `ui/agent-exploration`，进行最终 UI 选型。
 
 不要自动恢复 P2，不继续小机制海选：A NO-GO、B NO-GO、R1 NO-GO。失败结果用于避免重走停止路线。
 
